@@ -5,6 +5,7 @@ import { SignUpInputs, authSchema } from "../auth.schemas";
 import { useNavigate } from "react-router-dom";
 import { signUpUser } from "../handlers/signUpUser";
 import { useAuth } from "../hooks/useAuth";
+import toast from "react-hot-toast";
 
 export const SignUp = () => {
   const navigate = useNavigate();
@@ -25,7 +26,10 @@ export const SignUp = () => {
       handleSetUser(user);
       navigate("/");
     } catch (error) {
-      console.error(error);
+      if (error instanceof Error) {
+        return toast.error(error.message);
+      }
+      toast.error("something went wrong");
     }
   };
 
@@ -36,7 +40,7 @@ export const SignUp = () => {
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-        <Input label="Email" {...register("email")} type="email" fieldError={errors.email} />
+        <Input label="Email" {...register("email")} fieldError={errors.email} />
 
         <Input label="Username" {...register("username")} fieldError={errors.username} />
         <Input

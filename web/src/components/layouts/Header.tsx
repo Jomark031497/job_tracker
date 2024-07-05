@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { logoutUser } from "../../features/auth/handlers/logoutUser";
 
 export const Header = () => {
@@ -12,6 +13,13 @@ export const Header = () => {
 
   return (
     <header>
+      <nav>
+        <ul>
+          <Link to="/about">about</Link>
+          <Link to="/sys">sys</Link>
+        </ul>
+      </nav>
+
       <button onClick={handleLogout} className="p-2 bg-red-500">
         Logout
       </button>

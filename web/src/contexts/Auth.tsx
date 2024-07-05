@@ -21,6 +21,7 @@ export const AuthContextProvider = () => {
   };
 
   useEffect(() => {
+    console.log("effect ran");
     const checkAuth = async () => {
       try {
         const authenticatedUser = await getAuthenticatedUser();

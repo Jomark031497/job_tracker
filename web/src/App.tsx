@@ -22,6 +22,14 @@ const router = createBrowserRouter([
                 index: true,
                 element: <>Protected wassup!</>,
               },
+              {
+                path: "/about",
+                element: <>Badudi</>,
+              },
+              {
+                path: "/sys",
+                element: <>Badudi</>,
+              },
             ],
           },
         ],

@@ -5,6 +5,7 @@ import { LoginInputs, authSchema } from "../auth.schemas";
 import { loginUser } from "../handlers/loginUser";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import toast from "react-hot-toast";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ export const Login = () => {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<LoginInputs>({
     resolver: zodResolver(authSchema.omit({ email: true })),
@@ -25,7 +27,17 @@ export const Login = () => {
       handleSetUser(user);
       navigate("/");
     } catch (error) {
-      console.error(error);
+      if (error instanceof Error) {
+        setError("username", {
+          message: error.message,
+        });
+        setError("password", {
+          message: error.message,
+        });
+
+        return;
+      }
+      toast.error("something went wrong");
     }
   };
 
