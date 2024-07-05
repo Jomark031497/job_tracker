@@ -1,6 +1,8 @@
 import { pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
 import { createId } from "@paralleldrive/cuid2";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
+import { relations } from "drizzle-orm";
+import { applications } from "../applications/applications.schema";
 
 export const users = pgTable("users", {
   id: text("id")
@@ -13,7 +15,10 @@ export const users = pgTable("users", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
-// Schema for inserting a user - can be used to validate API requests
+export const usersRelations = relations(users, ({ many }) => ({
+  applications: many(applications),
+}));
+
 export const insertUserSchema = createInsertSchema(users, {
   email: (schema) => schema.email.email(),
 });
