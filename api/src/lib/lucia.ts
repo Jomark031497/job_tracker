@@ -3,6 +3,7 @@ import { Lucia } from "lucia";
 import { db } from "../db";
 import { sessionTable } from "../domains/auth/auth.schema";
 import { users } from "../domains/users/users.schema";
+import { GitHub } from "arctic";
 
 const adapter = new DrizzlePostgreSQLAdapter(db, sessionTable, users);
 
@@ -19,6 +20,11 @@ export const lucia = new Lucia(adapter, {
   },
 });
 
+export const github = new GitHub(
+  <string>process.env.GITHUB_CLIENT_ID,
+  <string>process.env.GITHUB_CLIENT_SECRET
+);
+
 // IMPORTANT!
 declare module "lucia" {
   interface Register {
@@ -27,9 +33,8 @@ declare module "lucia" {
   }
 }
 
-interface DatabaseUser {
+export interface DatabaseUser {
   id: string;
   username: string;
-  email: string;
-  password: string;
+  githubId: number;
 }

@@ -1,4 +1,4 @@
-import { Input } from "../../../components/ui/Input";
+import { InputField } from "../../../components/ui/InputField";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginInputs, authSchema } from "../auth.schemas";
@@ -49,8 +49,8 @@ export const Login = () => {
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-        <Input label="Username" {...register("username")} fieldError={errors.username} />
-        <Input
+        <InputField label="Username" {...register("username")} fieldError={errors.username} />
+        <InputField
           label="Password"
           type="password"
           {...register("password")}

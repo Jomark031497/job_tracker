@@ -1,8 +1,21 @@
 import { createId } from "@paralleldrive/cuid2";
 import { relations } from "drizzle-orm";
-import { decimal, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
+import { decimal, pgEnum, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
 import { users } from "../users/users.schema";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
+
+const APPLICATION_STATUS = [
+  "Submitted",
+  "Interview Scheduled",
+  "Interviewing",
+  "Offer Extended",
+  "Accepted Offer",
+  "Rejected",
+  "Hired",
+  "On Hold",
+] as const;
+
+export const statusEnum = pgEnum("status", APPLICATION_STATUS);
 
 export const applications = pgTable("applications", {
   id: text("id")
@@ -12,7 +25,7 @@ export const applications = pgTable("applications", {
   userId: text("user_id").notNull(),
   companyName: varchar("company_name").notNull(),
   companyWebsite: varchar("company_website"),
-  status: varchar("status").notNull(),
+  status: statusEnum("status").notNull(),
   applicationDate: timestamp("application_date").notNull().defaultNow(),
   description: text("description"),
   role: varchar("role").notNull(),

@@ -41,7 +41,7 @@ export const Header = () => {
   };
 
   return (
-    <header className="w-[350px] flex flex-col gap-8 p-4">
+    <header className="w-[350px] flex flex-col gap-8 p-4 shadow">
       <div className="flex justify-center items-center h-16 border-b">
         <h1 className="text-2xl font-bold">LOGO</h1>
       </div>

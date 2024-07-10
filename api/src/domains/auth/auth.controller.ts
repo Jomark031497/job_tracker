@@ -19,53 +19,42 @@ export const authenticatedUserHandler = async (
   }
 };
 
-export const signUpUserHandler = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const signUpUserHandler = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = await signUpUser(req.body);
 
     const session = await lucia.createSession(user.id, {});
 
     return res
-      .appendHeader(
-        "Set-Cookie",
-        lucia.createSessionCookie(session.id).serialize()
-      )
+      .appendHeader("Set-Cookie", lucia.createSessionCookie(session.id).serialize())
       .json(user);
   } catch (error) {
     return next(error);
   }
 };
 
-export const loginUserHandler = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const loginUserHandler = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = await loginUser(req.body);
 
     const session = await lucia.createSession(user.id, {});
 
     return res
-      .appendHeader(
-        "Set-Cookie",
-        lucia.createSessionCookie(session.id).serialize()
-      )
+      .appendHeader("Set-Cookie", lucia.createSessionCookie(session.id).serialize())
       .json(user);
   } catch (error) {
     return next(error);
   }
 };
 
-export const logoutUserHandler = async (
-  _req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const loginUserByGithubHandler = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export const logoutUserHandler = async (_req: Request, res: Response, next: NextFunction) => {
   try {
     const session = res.locals.session;
     if (!session) return res.status(401).json({ message: "unauthorized" });
