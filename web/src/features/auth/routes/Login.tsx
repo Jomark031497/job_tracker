@@ -6,6 +6,7 @@ import { loginUser } from "../handlers/loginUser";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import toast from "react-hot-toast";
+import { __API_URL__ } from "../../../constants";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -59,6 +60,12 @@ export const Login = () => {
         <button type="submit" className="bg-accent rounded text-white py-1.5 self-center px-4">
           Sign In
         </button>
+
+        <hr />
+
+        <div>
+          <a href={`${__API_URL__}/api/auth/github`}>Sign in with Github</a>
+        </div>
       </form>
     </section>
   );

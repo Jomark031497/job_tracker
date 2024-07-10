@@ -6,6 +6,7 @@ import { AuthContextProvider } from "./contexts/Auth";
 import { ProtectedRoute } from "./features/miscs/components/ProtectedRoute";
 import { AuthRoute } from "./features/miscs/components/AuthRoute";
 import { AuthLayout } from "./components/layouts/AuthLayout";
+import { Dashboard } from "./features/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
             children: [
               {
                 index: true,
-                element: <>Protected wassup!</>,
+                element: <Dashboard />,
               },
               {
                 path: "/about",
