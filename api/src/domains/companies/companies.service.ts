@@ -8,11 +8,7 @@ export const createCompamy = async (payload: InferInsertModel<typeof companies>)
 };
 
 export const getCompanies = async () => {
-  return await db.query.companies.findMany({
-    with: {
-      applications: true,
-    },
-  });
+  return await db.query.companies.findMany();
 };
 
 export const getCompanyById = async (id: string) => {

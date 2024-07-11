@@ -7,13 +7,14 @@ import {
 } from "./applications.controller";
 import { validateSchema } from "../../middlewares/validateSchema";
 import { insertApplicationsSchema } from "./applications.schema";
-import { requireAdmin } from "../../middlewares/requireAdmin";
+import { requireSuperAdmin } from "../../middlewares/requireSuperAdmin";
+import { verifyUser } from "../../middlewares/verifyUser";
 
 const router = Router();
 
-router.get("/", requireAuth, requireAdmin, getApplicationsHandler);
+router.get("/", requireAuth, requireSuperAdmin, getApplicationsHandler);
 
-router.get("/user/:id", requireAuth, getApplicationsByUserHandler);
+router.get("/user/:id", requireAuth, verifyUser, getApplicationsByUserHandler);
 
 router.post("/", requireAuth, validateSchema(insertApplicationsSchema), createApplicationHandler);
 

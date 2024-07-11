@@ -18,8 +18,7 @@ export const getApplicationsByUserHandler = async (
   next: NextFunction
 ) => {
   try {
-    const user = res.locals.user;
-    if (!user) throw new AppError(403, "Forbidden");
+    if (res.locals.user?.id !== req.params.id) throw new AppError(403, "Forbidden");
 
     const data = await getApplicationsByUser(<string>req.params.id);
 

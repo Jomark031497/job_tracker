@@ -1,19 +1,19 @@
 import { createId } from "@paralleldrive/cuid2";
 import { relations } from "drizzle-orm";
-import { decimal, pgEnum, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
+import { integer, pgEnum, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
 import { users } from "../users/users.schema";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { companies } from "../companies/companies.schema";
 
 const APPLICATION_STATUS = [
-  "Submitted",
-  "Interview Scheduled",
-  "Interviewing",
-  "Offer Extended",
-  "Accepted Offer",
-  "Rejected",
-  "Hired",
-  "On Hold",
+  "submitted",
+  "interview scheduled",
+  "interviewing",
+  "for offer",
+  "offer accepted",
+  "rejected",
+  "hired",
+  "on hold",
 ] as const;
 
 export const statusEnum = pgEnum("status", APPLICATION_STATUS);
@@ -22,16 +22,18 @@ export const applications = pgTable("applications", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => createId()),
-  userId: text("user_id").notNull(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => users.id),
   companyId: text("company_id")
     .notNull()
     .references(() => companies.id),
-  status: statusEnum("status").notNull(),
+  status: statusEnum("status").notNull().default("submitted"),
   applicationDate: timestamp("application_date").notNull().defaultNow(),
   description: text("description"),
   role: varchar("role").notNull(),
-  minSalary: decimal("min_salary"),
-  maxSalary: decimal("max_salary"),
+  minSalary: integer("min_salary"),
+  maxSalary: integer("max_salary"),
   contactPerson: varchar("contact_person"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
