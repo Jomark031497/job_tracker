@@ -7,11 +7,11 @@ import {
 } from "./auth.controller";
 import { validateSchema } from "../../middlewares/validateSchema";
 import { insertUserSchema, selectUserSchema } from "../users/users.schema";
-import { validateSession } from "../../middlewares/validateSession";
+import { requireAuth } from "../../middlewares/requireAuth";
 
 const router = Router();
 
-router.get("/user", validateSession, authenticatedUserHandler);
+router.get("/user", requireAuth, authenticatedUserHandler);
 
 router.post("/sign-up", validateSchema(insertUserSchema), signUpUserHandler);
 
@@ -26,6 +26,6 @@ router.post(
   loginUserHandler
 );
 
-router.delete("/logout", validateSession, logoutUserHandler);
+router.delete("/logout", requireAuth, logoutUserHandler);
 
 export default router;

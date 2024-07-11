@@ -9,6 +9,7 @@ export const createApplication = async (payload: InferInsertModel<typeof applica
   });
 
   if (!companyExists) throw new AppError(404, "Company not found");
+
   const query = await db.insert(applications).values(payload).returning();
   return query[0];
 };
@@ -24,6 +25,9 @@ export const getApplications = async () => {
 export const getApplicationsByUser = async (userId: string) => {
   return await db.query.applications.findMany({
     where: (applications, { eq }) => eq(applications.userId, userId),
+    with: {
+      company: true,
+    },
   });
 };
 

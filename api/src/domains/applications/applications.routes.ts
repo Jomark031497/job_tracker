@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { validateSession } from "../../middlewares/validateSession";
+import { requireAuth } from "../../middlewares/requireAuth";
 import {
   createApplicationHandler,
   getApplicationsByUserHandler,
@@ -7,18 +7,14 @@ import {
 } from "./applications.controller";
 import { validateSchema } from "../../middlewares/validateSchema";
 import { insertApplicationsSchema } from "./applications.schema";
+import { requireAdmin } from "../../middlewares/requireAdmin";
 
 const router = Router();
 
-router.get("/", validateSession, getApplicationsHandler);
+router.get("/", requireAuth, requireAdmin, getApplicationsHandler);
 
-router.get("/user/:id", validateSession, getApplicationsByUserHandler);
+router.get("/user/:id", requireAuth, getApplicationsByUserHandler);
 
-router.post(
-  "/",
-  validateSession,
-  validateSchema(insertApplicationsSchema),
-  createApplicationHandler
-);
+router.post("/", requireAuth, validateSchema(insertApplicationsSchema), createApplicationHandler);
 
 export default router;

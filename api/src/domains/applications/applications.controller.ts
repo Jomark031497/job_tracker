@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { createApplication, getApplications, getApplicationsByUser } from "./applications.service";
+import { AppError } from "../../utils/AppError";
 
 export const getApplicationsHandler = async (_req: Request, res: Response, next: NextFunction) => {
   try {
@@ -17,6 +18,9 @@ export const getApplicationsByUserHandler = async (
   next: NextFunction
 ) => {
   try {
+    const user = res.locals.user;
+    if (!user) throw new AppError(403, "Forbidden");
+
     const data = await getApplicationsByUser(<string>req.params.id);
 
     return res.status(200).json(data);

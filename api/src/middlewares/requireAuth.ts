@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { Session, User } from "lucia";
 import { lucia } from "../lib/lucia";
 
-export const validateSession = async (req: Request, res: Response, next: NextFunction) => {
+export const requireAuth = async (req: Request, res: Response, next: NextFunction) => {
   const sessionId = lucia.readSessionCookie(req.headers.cookie ?? "");
   if (!sessionId) {
     res.locals.user = null;
@@ -12,7 +12,7 @@ export const validateSession = async (req: Request, res: Response, next: NextFun
 
   const { session, user } = await lucia.validateSession(sessionId);
 
-  if (!user) return res.status(401).json({ message: "unauthorized" });
+  if (!user) return res.status(401).end();
 
   if (session && session.fresh) {
     res.appendHeader("Set-Cookie", lucia.createSessionCookie(session.id).serialize());

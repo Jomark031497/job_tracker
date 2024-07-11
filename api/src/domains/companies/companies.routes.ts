@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { validateSession } from "../../middlewares/validateSession";
+import { requireAuth } from "../../middlewares/requireAuth";
 import {
   createCompanyHandler,
   getCompaniesHandler,
@@ -10,9 +10,9 @@ import { insertCompanySchema } from "./companies.schema";
 
 const router = Router();
 
-router.get("/", validateSession, getCompaniesHandler);
-router.get("/:id", validateSession, getCompanyByIdHandler);
+router.get("/", requireAuth, getCompaniesHandler);
+router.get("/:id", requireAuth, getCompanyByIdHandler);
 
-router.post("/", validateSession, validateSchema(insertCompanySchema), createCompanyHandler);
+router.post("/", requireAuth, validateSchema(insertCompanySchema), createCompanyHandler);
 
 export default router;
