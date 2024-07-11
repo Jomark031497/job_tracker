@@ -1,4 +1,4 @@
-import { integer, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
 import { createId } from "@paralleldrive/cuid2";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { relations } from "drizzle-orm";
@@ -11,8 +11,7 @@ export const users = pgTable("users", {
     .$defaultFn(() => createId()),
   username: varchar("username", { length: 256 }).notNull().unique(),
   email: varchar("email", { length: 256 }).unique(),
-  githubId: integer("github_id").unique(),
-  password: varchar("password", { length: 256 }),
+  password: varchar("password", { length: 256 }).notNull(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 

@@ -47,13 +47,6 @@ export const loginUserHandler = async (req: Request, res: Response, next: NextFu
   }
 };
 
-export const loginUserByGithubHandler = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-  } catch (error) {
-    return next(error);
-  }
-};
-
 export const logoutUserHandler = async (_req: Request, res: Response, next: NextFunction) => {
   try {
     const session = res.locals.session;
