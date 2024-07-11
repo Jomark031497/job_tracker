@@ -20,7 +20,6 @@ export const statusEnum = pgEnum("status", APPLICATION_STATUS);
 export const applications = pgTable("applications", {
   id: text("id")
     .primaryKey()
-    .unique()
     .$defaultFn(() => createId()),
   userId: text("user_id").notNull(),
   companyName: varchar("company_name").notNull(),

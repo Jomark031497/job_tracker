@@ -7,10 +7,9 @@ import { applications } from "../applications/applications.schema";
 export const users = pgTable("users", {
   id: text("id")
     .primaryKey()
-    .unique()
     .$defaultFn(() => createId()),
   username: varchar("username", { length: 256 }).notNull().unique(),
-  email: varchar("email", { length: 256 }).unique(),
+  email: varchar("email", { length: 256 }).unique().notNull(),
   password: varchar("password", { length: 256 }).notNull(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
