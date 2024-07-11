@@ -3,10 +3,7 @@ import { db } from "../../db";
 import { users } from "./users.schema";
 import { Argon2id } from "oslo/password";
 
-export const getUserById = async (
-  id: string,
-  includePassword: boolean = true
-) => {
+export const getUserById = async (id: string, includePassword: boolean = true) => {
   return await db.query.users.findFirst({
     where: (users, { eq }) => eq(users.id, id),
     ...(!includePassword && {
@@ -17,10 +14,7 @@ export const getUserById = async (
   });
 };
 
-export const getUserByUsername = async (
-  username: string,
-  includePassword: boolean = true
-) => {
+export const getUserByUsername = async (username: string, includePassword: boolean = true) => {
   return await db.query.users.findFirst({
     where: (users, { eq }) => eq(users.username, username),
     ...(!includePassword && {

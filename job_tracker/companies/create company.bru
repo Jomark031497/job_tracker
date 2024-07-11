@@ -1,0 +1,17 @@
+meta {
+  name: create company
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/api/companies
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Talisay Montero Corps"
+  }
+}

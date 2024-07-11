@@ -1,11 +1,6 @@
 import { InferInsertModel } from "drizzle-orm";
 import { users } from "../users/users.schema";
-import {
-  createUser,
-  getUserByEmail,
-  getUserById,
-  getUserByUsername,
-} from "../users/users.service";
+import { createUser, getUserByEmail, getUserById, getUserByUsername } from "../users/users.service";
 import { AppError } from "../../utils/AppError";
 import { Argon2id } from "oslo/password";
 import { excludeFields } from "../../utils/excludeFields";
@@ -37,10 +32,7 @@ export const loginUser = async (
 
   if (!user) throw new AppError(404, "Invalid username/password");
 
-  const verifiedPassword = await new Argon2id().verify(
-    user.password,
-    payload.password
-  );
+  const verifiedPassword = await new Argon2id().verify(user.password, payload.password);
 
   if (!verifiedPassword) throw new AppError(404, "Invalid username/password");
 
