@@ -1,6 +1,7 @@
 import { DialogPanel, DialogTitle, Dialog, DialogBackdrop } from "@headlessui/react";
 import { ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
+import { IoMdClose } from "react-icons/io";
 
 type DialogProps = {
   isOpen: boolean;
@@ -25,21 +26,21 @@ export const Modal = ({ title, close, isOpen, children }: DialogProps) => {
       />
       <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
         <DialogPanel
-          // className="max-w-lg space-y-4 border bg-white p-12"
           transition
           className={twMerge(
-            "max-w-lg space-y-4 bg-white w-full p-4 rounded duration-300 ease-out data-[closed]:scale-95 data-[closed]:opacity-0"
+            "max-w-lg space-y-4 bg-white w-full relative rounded duration-300 ease-out data-[closed]:scale-95 data-[closed]:opacity-0"
           )}
         >
-          {title && <DialogTitle className="font-bold text-lg">{title}</DialogTitle>}
-          {/* <Description>This will permanently deactivate your account</Description> */}
+          <button
+            onClick={close}
+            className="text-2xl rounded-full hover:bg-gray-100 p-1 top-3 right-3 absolute"
+          >
+            <IoMdClose />
+          </button>
 
-          {children}
+          {title && <DialogTitle className="font-bold text-lg px-4">{title}</DialogTitle>}
 
-          {/* <div className="flex gap-4">
-            <button onClick={() => setIsOpen(false)}>Cancel</button>
-            <button onClick={() => setIsOpen(false)}>Deactivate</button>
-          </div> */}
+          <div className="p-4">{children}</div>
         </DialogPanel>
       </div>
     </Dialog>
