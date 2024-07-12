@@ -10,12 +10,15 @@ import { insertApplicationsSchema } from "./applications.schema";
 import { requireSuperAdmin } from "../../middlewares/requireSuperAdmin";
 import { verifyUser } from "../../middlewares/verifyUser";
 
-const router = Router();
+export const applicationsRouter = Router();
 
-router.get("/", requireAuth, requireSuperAdmin, getApplicationsHandler);
+applicationsRouter.get("/", requireAuth, requireSuperAdmin, getApplicationsHandler);
 
-router.get("/user/:id", requireAuth, verifyUser, getApplicationsByUserHandler);
+applicationsRouter.get("/user/:id", requireAuth, verifyUser, getApplicationsByUserHandler);
 
-router.post("/", requireAuth, validateSchema(insertApplicationsSchema), createApplicationHandler);
-
-export default router;
+applicationsRouter.post(
+  "/",
+  requireAuth,
+  validateSchema(insertApplicationsSchema),
+  createApplicationHandler
+);

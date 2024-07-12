@@ -8,11 +8,9 @@ import {
 import { validateSchema } from "../../middlewares/validateSchema";
 import { insertCompanySchema } from "./companies.schema";
 
-const router = Router();
+export const companiesRouter = Router();
 
-router.get("/", requireAuth, getCompaniesHandler);
-router.get("/:id", requireAuth, getCompanyByIdHandler);
+companiesRouter.get("/", requireAuth, getCompaniesHandler);
+companiesRouter.get("/:id", requireAuth, getCompanyByIdHandler);
 
-router.post("/", requireAuth, validateSchema(insertCompanySchema), createCompanyHandler);
-
-export default router;
+companiesRouter.post("/", requireAuth, validateSchema(insertCompanySchema), createCompanyHandler);

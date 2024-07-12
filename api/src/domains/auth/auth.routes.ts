@@ -9,13 +9,13 @@ import { validateSchema } from "../../middlewares/validateSchema";
 import { insertUserSchema, selectUserSchema } from "../users/users.schema";
 import { requireAuth } from "../../middlewares/requireAuth";
 
-const router = Router();
+export const authRouter = Router();
 
-router.get("/user", requireAuth, authenticatedUserHandler);
+authRouter.get("/user", requireAuth, authenticatedUserHandler);
 
-router.post("/sign-up", validateSchema(insertUserSchema), signUpUserHandler);
+authRouter.post("/sign-up", validateSchema(insertUserSchema), signUpUserHandler);
 
-router.post(
+authRouter.post(
   "/login",
   validateSchema(
     selectUserSchema.pick({
@@ -26,6 +26,4 @@ router.post(
   loginUserHandler
 );
 
-router.delete("/logout", requireAuth, logoutUserHandler);
-
-export default router;
+authRouter.delete("/logout", requireAuth, logoutUserHandler);
