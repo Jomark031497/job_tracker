@@ -23,7 +23,7 @@ export const InputField = forwardRef<HTMLInputElement, InputProps>(
             )}
           />
         </label>
-        {fieldError && <p className="text-red-500">{fieldError.message}</p>}
+        {fieldError && <p className="text-red-500 text-sm">{fieldError.message}</p>}
       </div>
     );
   }

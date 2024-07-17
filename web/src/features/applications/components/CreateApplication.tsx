@@ -6,11 +6,12 @@ import { SelectField } from "../../../components/ui/SelectField";
 import { TextArea } from "../../../components/ui/TextArea";
 import { APPLICATION_STATUS } from "../applications.types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { applicationSchema } from "../applications.schema";
-import { z } from "zod";
+import { ApplicationInputs, applicationSchema } from "../applications.schema";
 import { __API_URL__ } from "../../../constants";
 import toast from "react-hot-toast";
 import { createApplication } from "../handlers/createApplication";
+import { useMutation } from "@tanstack/react-query";
+import { queryClient } from "../../../lib/queryClient";
 
 type CreateApplicationProps = {
   isOpen: boolean;
@@ -18,31 +19,41 @@ type CreateApplicationProps = {
   userId: string;
 };
 
-type ApplicationSchemaInputs = z.infer<typeof applicationSchema>;
-
 export const CreateApplication = ({ close, isOpen, userId }: CreateApplicationProps) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<ApplicationSchemaInputs>({
+    reset,
+    formState: { errors, isLoading },
+  } = useForm<ApplicationInputs>({
     resolver: zodResolver(applicationSchema),
+    defaultValues: {
+      expectedSalary: 0,
+    },
   });
 
-  const onSubmit: SubmitHandler<ApplicationSchemaInputs> = async (values) => {
-    try {
-      const data = await createApplication({
-        ...values,
-        userId,
+  const mutation = useMutation({
+    mutationFn: (newApplication: ApplicationInputs & { userId: string }) => {
+      return createApplication(newApplication);
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+    onSuccess: () => {
+      toast.success("Application created");
+      reset();
+      queryClient.invalidateQueries({
+        queryKey: ["userApplications"],
       });
+      close();
+    },
+  });
 
-      console.log(data);
-    } catch (error) {
-      if (error instanceof Error) {
-        return toast.error(error.message);
-      }
-      toast.error("create application failed");
-    }
+  const onSubmit: SubmitHandler<ApplicationInputs> = async (values) => {
+    mutation.mutate({
+      ...values,
+      userId,
+    });
   };
 
   return (
@@ -50,18 +61,21 @@ export const CreateApplication = ({ close, isOpen, userId }: CreateApplicationPr
       <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-4 gap-2">
         <InputField
           label="Company Name *"
+          placeholder="Acme Inc."
           {...register("companyName")}
           fieldError={errors.companyName}
           containerClassName="col-span-4"
         />
         <InputField
           label="Company Website"
+          placeholder="www.acme.com"
           {...register("companyWebsite")}
           fieldError={errors.companyWebsite}
           containerClassName="col-span-2"
         />
         <InputField
           label="Contact Person"
+          placeholder="Wile E Coyote"
           {...register("contactPerson")}
           fieldError={errors.contactPerson}
           containerClassName="col-span-2"
@@ -77,6 +91,7 @@ export const CreateApplication = ({ close, isOpen, userId }: CreateApplicationPr
 
         <InputField
           label="Role *"
+          placeholder="ex. Web Developer, Accountant, Engineer"
           {...register("role")}
           fieldError={errors.role}
           containerClassName="col-span-2"
@@ -105,6 +120,7 @@ export const CreateApplication = ({ close, isOpen, userId }: CreateApplicationPr
         />
         <InputField
           label="Platform *"
+          placeholder="ex. Linkedin, Twitter, Jobstreet"
           {...register("platform")}
           fieldError={errors.platform}
           containerClassName="col-span-2"
@@ -118,7 +134,7 @@ export const CreateApplication = ({ close, isOpen, userId }: CreateApplicationPr
           containerClassName="col-span-2"
         />
 
-        <Button type="submit" className="col-span-4 justify-self-end px-16">
+        <Button type="submit" disabled={!isLoading} className="col-span-4 justify-self-end px-16">
           Create
         </Button>
       </form>
