@@ -6,7 +6,7 @@ import { AuthContextProvider } from "./contexts/Auth";
 import { ProtectedRoute } from "./features/miscs/components/ProtectedRoute";
 import { AuthRoute } from "./features/miscs/components/AuthRoute";
 import { AuthLayout } from "./components/layouts/AuthLayout";
-import { Dashboard } from "./features/Dashboard";
+import { Dashboard } from "./features/dashboard/components/Dashboard";
 
 const router = createBrowserRouter([
   {

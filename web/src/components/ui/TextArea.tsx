@@ -1,26 +1,27 @@
-import { forwardRef, InputHTMLAttributes } from "react";
+import { forwardRef, TextareaHTMLAttributes } from "react";
 import { FieldError } from "react-hook-form";
 import { twMerge } from "tailwind-merge";
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: string;
   fieldError?: FieldError;
   containerClassName?: string;
 }
 
-export const InputField = forwardRef<HTMLInputElement, InputProps>(
+export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
   ({ label, fieldError, containerClassName, ...rest }, ref) => {
     return (
-      <div className={containerClassName}>
+      <div className={twMerge("w-full", containerClassName)}>
         <label className="text-sm/6 font-medium text-gray-500">
           {label}
-          <input
+          <textarea
             ref={ref}
-            {...rest}
             className={twMerge(
-              "mt-1 block w-full h-10 transition-all outline-none rounded-lg border-2 bg-white/5 py-1.5 px-3 text-sm/6 text-black",
+              "mt-1 block w-full transition-all outline-none rounded-lg border-2 bg-white/5 py-1.5 px-3 text-sm/6 text-black",
               "focus:border-accent hover:border-primary"
             )}
+            rows={3}
+            {...rest}
           />
         </label>
         {fieldError && <p className="text-red-500">{fieldError.message}</p>}
