@@ -4,17 +4,7 @@ import { integer, pgEnum, pgTable, text, timestamp, varchar } from "drizzle-orm/
 import { users } from "../users/users.schema";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 
-const APPLICATION_STATUS = [
-  "submitted",
-  "initial interview",
-  "assessment",
-  "endorsement",
-  "client interview",
-  "job offer",
-  "rejected",
-  "hired",
-  "pooling",
-] as const;
+const APPLICATION_STATUS = ["submitted", "in progress", "rejected", "hired"] as const;
 
 export const statusEnum = pgEnum("status", APPLICATION_STATUS);
 

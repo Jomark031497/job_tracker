@@ -1,7 +1,11 @@
 import { z } from "zod";
 
+export const APPLICATION_STATUS = ["submitted", "in progress", "rejected", "hired"] as const;
+
+export type ApplicationStatus = (typeof APPLICATION_STATUS)[number];
+
 export const applicationSchema = z.object({
-  status: z.string(),
+  status: z.enum(APPLICATION_STATUS),
   companyName: z.string().min(1).max(255),
   companyWebsite: z.string().nullish(),
   contactPerson: z.string().max(255).nullish(),

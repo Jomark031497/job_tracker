@@ -1,19 +1,9 @@
-export const APPLICATION_STATUS = [
-  "submitted",
-  "initial interview",
-  "assessment",
-  "endorsement",
-  "client interview",
-  "job offer",
-  "rejected",
-  "hired",
-  "pooling",
-] as const;
+import { ApplicationStatus } from "./applications.schema";
 
 export type Application = {
   id: string;
   userId: string;
-  status: string;
+  status: ApplicationStatus;
   applicationDate: Date;
   description?: string | null;
   role: string;

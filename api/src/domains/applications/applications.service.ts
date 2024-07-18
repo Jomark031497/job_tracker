@@ -1,4 +1,4 @@
-import { eq, InferInsertModel, sql } from "drizzle-orm";
+import { and, eq, InferInsertModel, sql } from "drizzle-orm";
 import { applications } from "./applications.schema";
 import { db } from "../../db";
 import { AppError } from "../../utils/AppError";
@@ -27,13 +27,50 @@ export const getApplicationsByUser = async (
       offset: (page - 1) * pageSize,
     });
 
-    const count = await db
+    const count = await tx
       .select({ count: sql`count(*)` })
       .from(applications)
       .where(eq(applications.userId, userId))
       .then((result) => Number(result[0]?.count));
 
     return { data, count };
+  });
+
+  return query;
+};
+
+export const getUserApplicationsOverview = async (userId: string) => {
+  const query = await db.transaction(async (tx) => {
+    const count = await tx
+      .select({ count: sql`count(*)` })
+      .from(applications)
+      .where(eq(applications.userId, userId))
+      .then((result) => Number(result[0]?.count));
+
+    const submitted = await tx
+      .select({ count: sql`count(*)` })
+      .from(applications)
+      .where(and(eq(applications.userId, userId), eq(applications.status, "submitted")))
+      .then((result) => Number(result[0]?.count));
+
+    const inProgress = await tx
+      .select({ count: sql`count(*)` })
+      .from(applications)
+      .where(and(eq(applications.userId, userId), eq(applications.status, "in progress")))
+      .then((result) => Number(result[0]?.count));
+
+    const rejected = await tx
+      .select({ count: sql`count(*)` })
+      .from(applications)
+      .where(and(eq(applications.userId, userId), eq(applications.status, "rejected")))
+      .then((result) => Number(result[0]?.count));
+
+    return {
+      count,
+      inProgress,
+      submitted,
+      rejected,
+    };
   });
 
   return query;

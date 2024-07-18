@@ -5,6 +5,7 @@ import {
   deleteApplicationHandler,
   getApplicationsByUserHandler,
   getApplicationsHandler,
+  getUserApplicationsOverviewHandler,
   updateApplicationHandler,
 } from "./applications.controller";
 import { validateSchema } from "../../middlewares/validateSchema";
@@ -17,6 +18,13 @@ export const applicationsRouter = Router();
 applicationsRouter.get("/", requireAuth, requireSuperAdmin, getApplicationsHandler);
 
 applicationsRouter.get("/user/:id", requireAuth, verifyUser, getApplicationsByUserHandler);
+
+applicationsRouter.get(
+  "/user/overview/:id",
+  requireAuth,
+  verifyUser,
+  getUserApplicationsOverviewHandler
+);
 
 applicationsRouter.post(
   "/",
