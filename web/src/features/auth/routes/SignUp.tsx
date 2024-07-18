@@ -2,7 +2,7 @@ import { InputField } from "../../../components/ui/InputField";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpInputs, authSchema } from "../auth.schemas";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signUpUser } from "../handlers/signUpUser";
 import { useAuth } from "../hooks/useAuth";
 import toast from "react-hot-toast";
@@ -34,7 +34,7 @@ export const SignUp = () => {
   };
 
   return (
-    <section className="border p-4 rounded max-w-sm shadow w-full mx-2 flex flex-col gap-8">
+    <section className="border p-4 rounded max-w-sm shadow w-full flex flex-col gap-8">
       <div>
         <p className="text-xl text-center text-primary font-semibold">Job Application Tracker</p>
       </div>
@@ -51,9 +51,14 @@ export const SignUp = () => {
         />
 
         <button type="submit" className="bg-accent rounded text-white py-1.5 self-center px-4">
-          Sign In
+          Sign Up
         </button>
       </form>
+
+      <hr />
+      <p>
+        Already registered? <Link to="/auth/login">Login here</Link>
+      </p>
     </section>
   );
 };

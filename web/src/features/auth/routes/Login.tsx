@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginInputs, authSchema } from "../auth.schemas";
 import { loginUser } from "../handlers/loginUser";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import toast from "react-hot-toast";
 import { __API_URL__ } from "../../../constants";
@@ -43,7 +43,7 @@ export const Login = () => {
   };
 
   return (
-    <section className="border p-4 rounded max-w-sm shadow w-full mx-2 flex flex-col gap-8">
+    <section className="border rounded max-w-sm shadow w-full flex flex-col gap-8 p-4">
       <div>
         <p className="text-xl text-center text-primary font-semibold">Job Application Tracker</p>
       </div>
@@ -63,9 +63,9 @@ export const Login = () => {
 
         <hr />
 
-        <div>
-          <a href={`${__API_URL__}/api/auth/github`}>Sign in with Github</a>
-        </div>
+        <p>
+          No account yet? <Link to="/auth/sign-up">Sign up here</Link>
+        </p>
       </form>
     </section>
   );
