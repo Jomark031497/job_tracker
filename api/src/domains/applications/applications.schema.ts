@@ -28,12 +28,12 @@ export const applications = pgTable("applications", {
   status: statusEnum("status").notNull().default("submitted"),
   applicationDate: timestamp("application_date", { mode: "string" }).notNull().defaultNow(),
   description: text("description"),
-  role: varchar("role").notNull(),
+  role: varchar("role", { length: 100 }).notNull(),
   expectedSalary: integer("expected_salary"),
-  contactPerson: varchar("contact_person"),
+  contactPerson: varchar("contact_person", { length: 255 }),
   companyName: varchar("company_name", { length: 255 }).notNull(),
-  companyWebsite: varchar("company_website"),
-  platform: varchar("platform").notNull(),
+  companyWebsite: text("company_website"),
+  platform: varchar("platform", { length: 50 }).notNull(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
@@ -46,7 +46,10 @@ export const applicationsRelations = relations(applications, ({ one }) => ({
 }));
 
 export const insertApplicationsSchema = createInsertSchema(applications, {
-  companyName: (schema) => schema.companyName.min(1),
+  role: (schema) => schema.role.min(1).max(100),
+  companyName: (schema) => schema.companyName.min(1).max(255),
+  contactPerson: (schema) => schema.contactPerson.max(255),
+  platform: (schema) => schema.platform.min(1).max(255),
 });
 
 export const selectApplicationsSchema = createSelectSchema(applications);

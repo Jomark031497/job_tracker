@@ -2,8 +2,10 @@ import { Router } from "express";
 import { requireAuth } from "../../middlewares/requireAuth";
 import {
   createApplicationHandler,
+  deleteApplicationHandler,
   getApplicationsByUserHandler,
   getApplicationsHandler,
+  updateApplicationHandler,
 } from "./applications.controller";
 import { validateSchema } from "../../middlewares/validateSchema";
 import { insertApplicationsSchema } from "./applications.schema";
@@ -22,3 +24,7 @@ applicationsRouter.post(
   validateSchema(insertApplicationsSchema),
   createApplicationHandler
 );
+
+applicationsRouter.patch("/:id", requireAuth, verifyUser, updateApplicationHandler);
+
+applicationsRouter.delete("/:id", requireAuth, deleteApplicationHandler);

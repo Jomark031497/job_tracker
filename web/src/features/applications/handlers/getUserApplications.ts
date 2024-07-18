@@ -1,8 +1,12 @@
 import { __API_URL__ } from "../../../constants";
+import { SearchParams } from "../../miscs/misc.types";
 import { Application } from "../applications.types";
 
-export const getUserApplications = async (id: string) => {
+export const getUserApplications = async (id: string, query?: SearchParams) => {
   const url = new URL(`/api/applications/user/${id}`, __API_URL__);
+
+  query?.page && url.searchParams.set("page", query.page.toString());
+  query?.pageSize && url.searchParams.set("pageSize", query.pageSize.toString());
 
   const response = await fetch(url, {
     method: "GET",
@@ -12,5 +16,5 @@ export const getUserApplications = async (id: string) => {
   const data = await response.json();
 
   if (!response.ok) throw new Error(data.message);
-  return data as Application[];
+  return data as { data: Application[]; count: number };
 };

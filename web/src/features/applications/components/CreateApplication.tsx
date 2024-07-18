@@ -134,7 +134,7 @@ export const CreateApplication = ({ close, isOpen, userId }: CreateApplicationPr
           containerClassName="col-span-2"
         />
 
-        <Button type="submit" disabled={!isLoading} className="col-span-4 justify-self-end px-16">
+        <Button type="submit" disabled={isLoading} className="col-span-4 justify-self-end px-16">
           Create
         </Button>
       </form>
