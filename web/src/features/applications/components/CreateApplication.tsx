@@ -44,6 +44,9 @@ export const CreateApplication = ({ close, isOpen, userId }: CreateApplicationPr
       queryClient.invalidateQueries({
         queryKey: ["userApplications"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["userApplicationsOverview"],
+      });
       close();
     },
   });

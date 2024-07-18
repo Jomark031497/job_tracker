@@ -12,12 +12,12 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
   ({ label, fieldError, containerClassName, ...rest }, ref) => {
     return (
       <div className={twMerge("w-full", containerClassName)}>
-        <label className="text-sm/6 font-medium text-gray-500">
+        <label className="text-xs md:text-sm font-medium text-gray-500">
           {label}
           <textarea
             ref={ref}
             className={twMerge(
-              "mt-1 block w-full transition-all outline-none rounded-lg border-2 bg-white/5 py-1.5 px-3 text-sm/6 text-black",
+              "mt-1 block w-full transition-all outline-none rounded-lg border-2 bg-white/5 py-1.5 px-3 text-xs md:text-sm text-gray-500",
               "focus:border-accent hover:border-primary"
             )}
             rows={3}

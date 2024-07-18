@@ -12,13 +12,13 @@ export const InputField = forwardRef<HTMLInputElement, InputProps>(
   ({ label, fieldError, containerClassName, ...rest }, ref) => {
     return (
       <div className={containerClassName}>
-        <label className="text-sm/6 font-medium text-gray-500">
+        <label className="text-xs md:text-sm font-medium text-gray-500">
           {label}
           <input
             ref={ref}
             {...rest}
             className={twMerge(
-              "mt-1 block w-full h-10 transition-all outline-none rounded-lg border-2 bg-white/5 py-1.5 px-3 text-sm/6 text-black",
+              "mt-1 block w-full transition-all outline-none rounded-lg text-xs border-2 bg-white/5 text-gray-500 py-1.5 px-3 md:text-sm/6",
               "focus:border-accent hover:border-primary"
             )}
           />

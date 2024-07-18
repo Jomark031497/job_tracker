@@ -7,7 +7,7 @@ export type Application = {
   applicationDate: Date;
   description?: string | null;
   role: string;
-  expectedSalary: number | null;
+  expectedSalary: number;
   contactPerson?: string | null;
   companyName: string;
   companyWebsite?: string | null;

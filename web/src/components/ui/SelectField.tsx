@@ -12,13 +12,13 @@ export const SelectField = forwardRef<HTMLSelectElement, SelectFieldProps>(
   ({ label, containerClassName, fieldError, ...rest }, ref) => {
     return (
       <div className={containerClassName}>
-        <label className="text-sm/6 font-medium text-gray-500">
+        <label className="text-xs md:text-sm font-medium text-gray-500">
           {label}
           <select
             ref={ref}
             {...rest}
             className={twMerge(
-              "mt-1 block w-full h-10 transition-all outline-none rounded-lg border-2 bg-white/5 py-2 px-3 text-sm/6 text-black",
+              "mt-1 block w-full h-10 transition-all outline-none rounded-lg border-2 bg-white/5 py-2 px-3 md:text-sm text-xs text-gray-500",
               "focus:border-accent hover:border-primary"
             )}
           />
