@@ -5,10 +5,10 @@ import { Toaster } from "react-hot-toast";
 export const RootLayout = () => {
   return (
     <>
-      <div className="flex min-h-screen gap-4">
+      <div className="min-h-screen md:flex">
         <Header />
-        <main className="flex-1 p-4">
-          <div className="h-20" />
+        <main className="flex-1 px-4">
+          <div className="md:h-16" />
           <Outlet />
         </main>
       </div>

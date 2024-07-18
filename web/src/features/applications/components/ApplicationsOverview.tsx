@@ -8,22 +8,22 @@ export const ApplicationsOverview = ({ userId }: ApplicationsOverview) => {
   const { data } = useUserApplicationsOverview(userId);
 
   return (
-    <section className="flex items-center gap-4 mb-8">
-      <div className="p-4 border-2 rounded text-center flex-1">
-        <h2 className="text-xl font-semibold">Total Applications</h2>
-        <p className="text-2xl font-bold">{data.count}</p>
+    <section className="grid grid-cols-4 gap-4 mb-8">
+      <div className="p-4 border-2 rounded text-center flex-1 col-span-2 md:col-span-1">
+        <h2 className="text-xs md:text-xl font-semibold mb-1">Total Applications</h2>
+        <p className="text-md font-bold md:text-2xl">{data.count}</p>
       </div>
-      <div className="p-4 border-2 rounded text-center flex-1">
-        <h2 className="text-xl font-semibold">Submitted</h2>
-        <p className="text-2xl font-bold">{data.submitted}</p>
+      <div className="p-4 border-2 rounded text-center flex-1 col-span-2 md:col-span-1">
+        <h2 className="text-xs md:text-xl font-semibold mb-1">Submitted</h2>
+        <p className="text-md font-bold md:text-2xl">{data.submitted}</p>
       </div>
-      <div className="p-4 border-2 rounded text-center flex-1">
-        <h2 className="text-xl font-semibold">In Progress</h2>
-        <p className="text-2xl font-bold">{data.inProgress}</p>
+      <div className="p-4 border-2 rounded text-center flex-1 col-span-2 md:col-span-1">
+        <h2 className="text-xs md:text-xl font-semibold mb-1">In Progress</h2>
+        <p className="text-md font-bold md:text-2xl">{data.inProgress}</p>
       </div>
-      <div className="p-4 border-2 rounded text-center flex-1">
-        <h2 className="text-xl font-semibold">Rejected</h2>
-        <p className="text-2xl font-bold">{data.rejected}</p>
+      <div className="p-4 border-2 rounded text-center flex-1 col-span-2 md:col-span-1">
+        <h2 className="text-xs md:text-xl font-semibold mb-1">Rejected</h2>
+        <p className="text-md font-bold md:text-2xl">{data.rejected}</p>
       </div>
     </section>
   );

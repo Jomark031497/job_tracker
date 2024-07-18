@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 import { MdOutlineLogout } from "react-icons/md";
 import { logoutUser } from "../../features/auth/handlers/logoutUser";
+import { RiMenu2Line } from "react-icons/ri";
 
 const navLinks = [
   {
@@ -41,41 +42,45 @@ export const Header = () => {
   };
 
   return (
-    <header className="w-[350px] flex flex-col gap-8 p-4 shadow">
-      <div className="flex justify-center items-center h-16 border-b">
-        <h1 className="text-2xl font-bold">LOGO</h1>
-      </div>
-
-      <nav className="flex-1">
-        <ul className="flex flex-col gap-4">
-          {navLinks.map((item) => (
-            <li key={item.label} className="flex items-center gap-2 text-xl">
-              <i>{item.icon}</i>
-              <NavLink
-                to={item.path}
-                className={({ isActive }) =>
-                  twMerge(
-                    "transition-all hover:text-accent font-semibold",
-                    isActive ? "text-primary" : "text-gray-500"
-                  )
-                }
-              >
-                {item.label}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-      </nav>
-
-      <div className="flex">
-        <button className="text-2xl" onClick={handleLogout}>
-          <MdOutlineLogout />
+    <header className="">
+      <div className="h-16 w-full flex items-center px-4 md:hidden">
+        <button className="text-2xl hover:bg-gray-100 transition-all hover:text-accent p-2 rounded-full">
+          <RiMenu2Line />
         </button>
       </div>
-      {/* 
-      <button onClick={handleLogout} className="p-2 bg-red-500">
-        Logout
-      </button> */}
+
+      <div className="hidden md:flex md:flex-col h-screen md:w-[350px] md:border-r">
+        <div className="flex justify-center items-center h-16 border-b">
+          <h1 className="text-2xl font-bold">LOGO</h1>
+        </div>
+
+        <nav className="flex-1 p-4">
+          <ul className="flex flex-col gap-4">
+            {navLinks.map((item) => (
+              <li key={item.label} className="flex items-center gap-2 text-xl">
+                <i>{item.icon}</i>
+                <NavLink
+                  to={item.path}
+                  className={({ isActive }) =>
+                    twMerge(
+                      "transition-all hover:text-accent font-semibold",
+                      isActive ? "text-primary" : "text-gray-500"
+                    )
+                  }
+                >
+                  {item.label}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className="flex">
+          <button className="text-2xl" onClick={handleLogout}>
+            <MdOutlineLogout />
+          </button>
+        </div>
+      </div>
     </header>
   );
 };
