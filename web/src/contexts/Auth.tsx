@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useMemo, useState } from "react";
 import { User } from "../features/users/users.types";
 import { getAuthenticatedUser } from "../features/auth/handlers/getAuthenticatedUser";
 import { Outlet, useNavigate } from "react-router-dom";
@@ -20,8 +20,9 @@ export const AuthContextProvider = () => {
     setUser(value);
   };
 
+  const contextValue = useMemo(() => ({ user, handleSetUser }), [user]);
+
   useEffect(() => {
-    console.log("effect ran");
     const checkAuth = async () => {
       try {
         const authenticatedUser = await getAuthenticatedUser();
@@ -35,10 +36,10 @@ export const AuthContextProvider = () => {
     };
 
     checkAuth();
-  }, [navigate]);
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ user, handleSetUser }}>
+    <AuthContext.Provider value={contextValue}>
       {!isInitialLoading && <Outlet />}
     </AuthContext.Provider>
   );
