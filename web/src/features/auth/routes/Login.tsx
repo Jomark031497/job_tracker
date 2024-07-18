@@ -43,9 +43,9 @@ export const Login = () => {
   };
 
   return (
-    <section className="border rounded max-w-sm shadow w-full flex flex-col gap-8 p-4">
+    <section className="flex w-full max-w-sm flex-col gap-8 rounded border p-4 shadow">
       <div>
-        <p className="text-xl text-center text-primary font-semibold">Job Application Tracker</p>
+        <p className="text-center text-xl font-semibold text-primary">Job Application Tracker</p>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
@@ -57,7 +57,7 @@ export const Login = () => {
           fieldError={errors.password}
         />
 
-        <button type="submit" className="bg-accent rounded text-white py-1.5 self-center px-4">
+        <button type="submit" className="self-center rounded bg-accent px-4 py-1.5 text-white">
           Sign In
         </button>
 

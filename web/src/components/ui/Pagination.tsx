@@ -10,9 +10,9 @@ type PaginationProps<T> = {
 
 export const Pagination = <T,>({ table, pagination, count }: PaginationProps<T>) => {
   return (
-    <section className="flex items-center gap-2 pt-4 self-end">
+    <section className="flex items-center gap-2 self-end pt-4">
       <Button
-        className="p-1 bg-white border-accent border-2 text-accent hover:bg-accent hover:text-white"
+        className="border-2 border-accent bg-white p-1 text-accent hover:bg-accent hover:text-white"
         onClick={() => table.previousPage()}
         disabled={!table.getCanPreviousPage()}
       >
@@ -25,7 +25,7 @@ export const Pagination = <T,>({ table, pagination, count }: PaginationProps<T>)
         </strong>
       </span>
       <Button
-        className="p-1 bg-white border-accent border-2 text-accent hover:bg-accent hover:text-white"
+        className="border-2 border-accent bg-white p-1 text-accent hover:bg-accent hover:text-white"
         onClick={() => table.nextPage()}
         disabled={!table.getCanNextPage()}
       >

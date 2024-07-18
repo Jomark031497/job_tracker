@@ -13,15 +13,15 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...rest}
         className={twMerge(
-          "py-2 transition-all font-semibold rounded text-xs md:text-sm",
+          "rounded py-2 text-xs font-semibold transition-all md:text-sm",
           rest.className,
           rest.disabled
-            ? "bg-gray-300 text-white border-gray-300 hover:bg-gray-300"
-            : "bg-accent text-white hover:bg-primary"
+            ? "border-gray-300 bg-gray-300 text-white hover:bg-gray-300"
+            : "bg-accent text-white hover:bg-primary",
         )}
       >
         {children}
       </button>
     );
-  }
+  },
 );

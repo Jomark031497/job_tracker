@@ -12,13 +12,13 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
   ({ label, fieldError, containerClassName, ...rest }, ref) => {
     return (
       <div className={twMerge("w-full", containerClassName)}>
-        <label className="text-xs md:text-sm font-medium text-gray-500">
+        <label className="text-xs font-medium text-gray-500 md:text-sm">
           {label}
           <textarea
             ref={ref}
             className={twMerge(
-              "mt-1 block w-full transition-all outline-none rounded-lg border-2 bg-white/5 py-1.5 px-3 text-xs md:text-sm text-gray-500",
-              "focus:border-accent hover:border-primary"
+              "mt-1 block w-full rounded-lg border-2 bg-white/5 px-3 py-1.5 text-xs text-gray-500 outline-none transition-all md:text-sm",
+              "hover:border-primary focus:border-accent",
             )}
             rows={3}
             {...rest}
@@ -27,5 +27,5 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
         {fieldError && <p className="text-red-500">{fieldError.message}</p>}
       </div>
     );
-  }
+  },
 );

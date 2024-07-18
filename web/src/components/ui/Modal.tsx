@@ -28,17 +28,17 @@ export const Modal = ({ title, close, isOpen, children }: DialogProps) => {
         <DialogPanel
           transition
           className={twMerge(
-            "max-w-lg space-y-4 bg-white w-full relative rounded duration-300 ease-out data-[closed]:scale-95 data-[closed]:opacity-0"
+            "relative w-full max-w-lg space-y-4 rounded bg-white duration-300 ease-out data-[closed]:scale-95 data-[closed]:opacity-0",
           )}
         >
           <button
             onClick={close}
-            className="text-2xl rounded-full hover:bg-gray-100 p-1 top-3 right-3 absolute"
+            className="absolute right-3 top-3 rounded-full p-1 text-2xl hover:bg-gray-100"
           >
             <IoMdClose />
           </button>
 
-          {title && <DialogTitle className="font-bold text-lg px-4">{title}</DialogTitle>}
+          {title && <DialogTitle className="px-4 text-lg font-bold">{title}</DialogTitle>}
 
           <div className="p-4">{children}</div>
         </DialogPanel>

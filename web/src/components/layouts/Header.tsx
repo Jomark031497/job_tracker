@@ -43,14 +43,14 @@ export const Header = () => {
 
   return (
     <header className="">
-      <div className="h-16 w-full flex items-center px-4 md:hidden">
-        <button className="text-2xl hover:bg-gray-100 transition-all hover:text-accent p-2 rounded-full">
+      <div className="flex h-16 w-full items-center px-4 md:hidden">
+        <button className="rounded-full p-2 text-2xl transition-all hover:bg-gray-100 hover:text-accent">
           <RiMenu2Line />
         </button>
       </div>
 
-      <div className="hidden md:flex md:flex-col h-screen md:w-[350px] md:border-r">
-        <div className="flex justify-center items-center h-16 border-b">
+      <div className="hidden h-screen md:flex md:w-[350px] md:flex-col md:border-r">
+        <div className="flex h-16 items-center justify-center border-b">
           <h1 className="text-2xl font-bold">LOGO</h1>
         </div>
 
@@ -63,8 +63,8 @@ export const Header = () => {
                   to={item.path}
                   className={({ isActive }) =>
                     twMerge(
-                      "transition-all hover:text-accent font-semibold",
-                      isActive ? "text-primary" : "text-gray-500"
+                      "font-semibold transition-all hover:text-accent",
+                      isActive ? "text-primary" : "text-gray-500",
                     )
                   }
                 >

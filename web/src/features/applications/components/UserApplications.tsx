@@ -27,7 +27,7 @@ const columns = [
   columnHelper.accessor("status", {
     header: "Status",
     cell: (info) => (
-      <span className="border rounded-full text-sm px-4 py-1.5">{info.getValue()}</span>
+      <span className="rounded-full border px-4 py-1.5 text-sm">{info.getValue()}</span>
     ),
   }),
   columnHelper.accessor("applicationDate", {
@@ -73,9 +73,9 @@ export const UserApplications = ({ open, userId }: UserApplicationsProps) => {
   });
 
   return (
-    <section className="p-4 flex flex-col">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="font-semibold text-sm md:text-2xl">Recent Applications</h2>
+    <section className="flex flex-col p-4">
+      <div className="mb-4 flex items-center justify-between">
+        <h2 className="text-sm font-semibold md:text-2xl">Recent Applications</h2>
 
         <Button onClick={open} className="px-2">
           Create
@@ -85,16 +85,16 @@ export const UserApplications = ({ open, userId }: UserApplicationsProps) => {
       <div className="block md:hidden">
         <ul className="flex flex-col gap-2">
           {userApplications.data.map((item) => (
-            <li key={item.id} className="grid grid-cols-3 p-2 border rounded shadow">
+            <li key={item.id} className="grid grid-cols-3 rounded border p-2 shadow">
               <div className="col-span-2">
-                <p className="font-semibold tracking-wide text-xs">{item.companyName}</p>
+                <p className="text-xs font-semibold tracking-wide">{item.companyName}</p>
                 <p className="text-xs">{item.role}</p>
                 <p className="text-xs">{formatToCurrency(item.expectedSalary)}</p>
               </div>
               <div className="col-span-1 flex flex-col items-end">
                 <p className="text-xs">{item.platform}</p>
                 <p className="text-xs">{format(item.applicationDate, "MMM dd yyyy")}</p>
-                <p className="text-xs px-2 border rounded-full shadow bg-gray-300 text-black">
+                <p className="rounded-full border bg-gray-300 px-2 text-xs text-black shadow">
                   {item.status}
                 </p>
               </div>

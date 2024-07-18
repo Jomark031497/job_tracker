@@ -10,7 +10,7 @@ import { ApplicationsOverview } from "../../applications/components/Applications
 const CreateApplication = lazy(() =>
   import("../../applications/components/CreateApplication").then((module) => ({
     default: module.CreateApplication,
-  }))
+  })),
 );
 
 export const Dashboard = () => {

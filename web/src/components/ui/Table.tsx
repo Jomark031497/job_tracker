@@ -11,7 +11,7 @@ export const Table = <T,>({ table }: TableProps<T>) => {
         {table.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
-              <th key={header.id} className="text-start text-gray-500 pb-2">
+              <th key={header.id} className="pb-2 text-start text-gray-500">
                 {header.isPlaceholder
                   ? null
                   : flexRender(header.column.columnDef.header, header.getContext())}
