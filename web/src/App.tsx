@@ -24,12 +24,16 @@ const router = createBrowserRouter([
                 element: <Dashboard />,
               },
               {
-                path: "/about",
+                path: "about",
                 element: <>Badudi</>,
               },
               {
-                path: "/sys",
+                path: "sys",
                 element: <>Badudi</>,
+              },
+              {
+                path: "*",
+                element: <>Page not found</>,
               },
             ],
           },
