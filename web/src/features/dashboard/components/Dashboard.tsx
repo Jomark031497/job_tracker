@@ -28,11 +28,7 @@ export const Dashboard = () => {
         </Suspense>
       </WithErrorBoundary>
 
-      <WithErrorBoundary fallbackMessage="Unable to fetch user applications">
-        <Suspense fallback={<ApplicationsOverviewSkeleton />}>
-          <UserApplications userId={user.id} open={open} />
-        </Suspense>
-      </WithErrorBoundary>
+      <UserApplications userId={user.id} open={open} />
 
       <CreateApplication close={close} isOpen={isOpen} userId={user.id} />
     </>

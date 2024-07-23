@@ -46,12 +46,12 @@ export const UserApplications = ({ open, userId }: UserApplicationsProps) => {
   });
 
   const table = useReactTable({
-    data: userApplications.data ?? [],
+    data: userApplications?.data ?? [],
     columns,
     getCoreRowModel: getCoreRowModel(),
     manualPagination: true,
     onPaginationChange: setPagination,
-    pageCount: Math.ceil(userApplications.count / pagination.pageSize) ?? 1,
+    pageCount: userApplications ? (Math.ceil(userApplications.count / pagination.pageSize) ?? 1) : 0,
     state: {
       pagination,
     },
@@ -72,7 +72,7 @@ export const UserApplications = ({ open, userId }: UserApplicationsProps) => {
 
       <div className="block md:hidden">
         <ul className="flex flex-col gap-2">
-          {userApplications.data.map((item) => (
+          {userApplications?.data.map((item) => (
             <li key={item.id} className="grid grid-cols-3 rounded border p-2 shadow">
               <div className="col-span-2">
                 <p className="text-xs font-semibold tracking-wide">{item.companyName}</p>
@@ -93,7 +93,7 @@ export const UserApplications = ({ open, userId }: UserApplicationsProps) => {
         <Table table={table} />
       </div>
 
-      <Pagination count={userApplications.count} pagination={pagination} table={table} />
+      <Pagination count={userApplications?.count || 0} pagination={pagination} table={table} />
     </section>
   );
 };
