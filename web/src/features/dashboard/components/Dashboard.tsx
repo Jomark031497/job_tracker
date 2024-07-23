@@ -1,24 +1,21 @@
 import { useAuth } from "../../auth/hooks/useAuth";
-import { lazy, Suspense } from "react";
+import { Suspense } from "react";
 import { UserApplications } from "../../applications/components/UserApplications";
 import { useToggle } from "../../miscs/hooks/useToggle";
 import { ErrorBoundary } from "react-error-boundary";
 import { QueryErrorResetBoundary } from "@tanstack/react-query";
 import { Button } from "../../../components/ui/Button";
-import {
-  ApplicationsOverview,
-  ApplicationsOverviewSkeleton,
-} from "../../applications/components/ApplicationsOverview";
 import { useApplications } from "../../applications/hooks/useApplications";
 import { createColumnHelper, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { Application } from "../../applications/applications.types";
 import { format } from "date-fns";
 import { Table } from "../../../components/ui/Table";
+import { lazily } from "react-lazily";
 
-const CreateApplication = lazy(() =>
-  import("../../applications/components/CreateApplication").then((module) => ({
-    default: module.CreateApplication,
-  })),
+const { CreateApplication } = lazily(() => import("../../applications/components/CreateApplication"));
+
+const { ApplicationsOverview, ApplicationsOverviewSkeleton } = lazily(
+  () => import("../../applications/components/ApplicationsOverview"),
 );
 
 const columnHelper = createColumnHelper<Application>();
@@ -34,9 +31,7 @@ const columns = [
   }),
   columnHelper.accessor("status", {
     header: "Status",
-    cell: (info) => (
-      <span className="rounded-full border px-4 py-1.5 text-sm">{info.getValue()}</span>
-    ),
+    cell: (info) => <span className="rounded-full border px-4 py-1.5 text-sm">{info.getValue()}</span>,
   }),
   columnHelper.accessor("applicationDate", {
     header: "Application Date",
