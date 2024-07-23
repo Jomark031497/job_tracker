@@ -58,11 +58,11 @@ export const UserApplications = ({ open, userId }: UserApplicationsProps) => {
   });
 
   return (
-    <section className="flex flex-col rounded border bg-white p-8 shadow">
+    <section className="flex flex-col rounded border bg-white p-4 shadow md:p-8">
       <div className="mb-8 flex items-center justify-between">
         <div>
-          <h2 className="text-sm font-semibold md:text-xl">Your Recent Applications</h2>
-          <p className="text-sm text-gray-500">Your most recent job applications</p>
+          <h2 className="text-sm font-semibold md:text-xl">Recent Applications</h2>
+          <p className="text-xs text-gray-500 md:text-sm">Your most recent job applications</p>
         </div>
 
         <Button onClick={open} className="px-2">
