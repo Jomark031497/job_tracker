@@ -1,7 +1,7 @@
 import { and, eq, InferInsertModel, sql } from "drizzle-orm";
-import { applications } from "./applications.schema";
-import { db } from "../../db";
-import { AppError } from "../../utils/AppError";
+import { applications } from "./applications.schema.js";
+import { db } from "../../db/index.js";
+import { AppError } from "../../utils/AppError.js";
 
 export const createApplication = async (payload: InferInsertModel<typeof applications>) => {
   const query = await db.insert(applications).values(payload).returning();

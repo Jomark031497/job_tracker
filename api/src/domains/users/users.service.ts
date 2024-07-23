@@ -1,8 +1,8 @@
 import { eq, InferInsertModel } from "drizzle-orm";
-import { db } from "../../db";
-import { users } from "./users.schema";
+import { db } from "../../db/index.js";
+import { users } from "./users.schema.js";
 import { Argon2id } from "oslo/password";
-import { AppError } from "../../utils/AppError";
+import { AppError } from "../../utils/AppError.js";
 
 export const getUsers = async () => {
   return await db.query.users.findMany({

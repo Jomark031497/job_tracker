@@ -44,10 +44,10 @@ export const ApplicationsOverview = ({ userId }: ApplicationsOverview) => {
 export const ApplicationsOverviewSkeleton = () => {
   return (
     <section className="mb-8 grid grid-cols-4 gap-4">
-      <div className="col-span-2 h-[126px] flex-1 animate-pulse rounded border bg-gray-200 p-4 shadow md:col-span-1"></div>
-      <div className="col-span-2 h-[126px] flex-1 animate-pulse rounded border bg-gray-200 p-4 shadow md:col-span-1"></div>
-      <div className="col-span-2 h-[126px] flex-1 animate-pulse rounded border bg-gray-200 p-4 shadow md:col-span-1"></div>
-      <div className="col-span-2 h-[126px] flex-1 animate-pulse rounded border bg-gray-200 p-4 shadow md:col-span-1"></div>
+      <div className="col-span-2 h-[106px] flex-1 animate-pulse rounded border bg-gray-200 p-4 shadow md:col-span-1 md:h-[126px]"></div>
+      <div className="col-span-2 h-[106px] flex-1 animate-pulse rounded border bg-gray-200 p-4 shadow md:col-span-1 md:h-[126px]"></div>
+      <div className="col-span-2 h-[106px] flex-1 animate-pulse rounded border bg-gray-200 p-4 shadow md:col-span-1 md:h-[126px]"></div>
+      <div className="col-span-2 h-[106px] flex-1 animate-pulse rounded border bg-gray-200 p-4 shadow md:col-span-1 md:h-[126px]"></div>
     </section>
   );
 };

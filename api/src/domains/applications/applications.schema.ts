@@ -1,16 +1,7 @@
 import { createId } from "@paralleldrive/cuid2";
 import { relations } from "drizzle-orm";
-import {
-  bit,
-  boolean,
-  integer,
-  pgEnum,
-  pgTable,
-  text,
-  timestamp,
-  varchar,
-} from "drizzle-orm/pg-core";
-import { users } from "../users/users.schema";
+import { boolean, integer, pgEnum, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
+import { users } from "../users/users.schema.js";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 
 const APPLICATION_STATUS = ["submitted", "in progress", "rejected", "hired"] as const;

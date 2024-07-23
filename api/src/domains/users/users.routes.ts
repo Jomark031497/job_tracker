@@ -1,10 +1,10 @@
 import { Router } from "express";
-import * as controller from "./users.controller";
-import { validateSchema } from "../../middlewares/validateSchema";
-import { insertUserSchema } from "./users.schema";
-import { requireAuth } from "../../middlewares/requireAuth";
-import { requireSuperAdmin } from "../../middlewares/requireSuperAdmin";
-import { verifyUser } from "../../middlewares/verifyUser";
+import * as controller from "./users.controller.js";
+import { validateSchema } from "../../middlewares/validateSchema.js";
+import { insertUserSchema } from "./users.schema.js";
+import { requireAuth } from "../../middlewares/requireAuth.js";
+import { requireSuperAdmin } from "../../middlewares/requireSuperAdmin.js";
+import { verifyUser } from "../../middlewares/verifyUser.js";
 
 export const usersRouter = Router();
 

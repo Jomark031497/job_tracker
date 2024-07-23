@@ -6,8 +6,8 @@ import {
   getApplicationsByUser,
   getUserApplicationsOverview,
   updateApplication,
-} from "./applications.service";
-import { AppError } from "../../utils/AppError";
+} from "./applications.service.js";
+import { AppError } from "../../utils/AppError.js";
 
 export const getApplicationsHandler = async (req: Request, res: Response, next: NextFunction) => {
   try {

@@ -1,9 +1,14 @@
 import { InferInsertModel } from "drizzle-orm";
-import { users } from "../users/users.schema";
-import { createUser, getUserByEmail, getUserById, getUserByUsername } from "../users/users.service";
-import { AppError } from "../../utils/AppError";
+import { users } from "../users/users.schema.js";
+import {
+  createUser,
+  getUserByEmail,
+  getUserById,
+  getUserByUsername,
+} from "../users/users.service.js";
+import { AppError } from "../../utils/AppError.js";
 import { Argon2id } from "oslo/password";
-import { excludeFields } from "../../utils/excludeFields";
+import { excludeFields } from "../../utils/excludeFields.js";
 
 export const getAuthenticatedUser = async (id: string) => {
   const user = await getUserById(id, false);

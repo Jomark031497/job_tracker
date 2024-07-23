@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { getAuthenticatedUser, loginUser, signUpUser } from "./auth.service";
-import { lucia } from "../../lib/lucia";
+import { getAuthenticatedUser, loginUser, signUpUser } from "./auth.service.js";
+import { lucia } from "../../lib/lucia.js";
 
 export const authenticatedUserHandler = async (
   _req: Request,

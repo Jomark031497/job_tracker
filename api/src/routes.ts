@@ -1,7 +1,7 @@
 import { Express } from "express";
-import { usersRouter } from "./domains/users/users.routes";
-import { authRouter } from "./domains/auth/auth.routes";
-import { applicationsRouter } from "./domains/applications/applications.routes";
+import { usersRouter } from "./domains/users/users.routes.js";
+import { authRouter } from "./domains/auth/auth.routes.js";
+import { applicationsRouter } from "./domains/applications/applications.routes.js";
 
 export const initializeRoutes = (app: Express) => {
   app.use("/api/users", usersRouter);

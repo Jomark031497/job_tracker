@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { requireAuth } from "../../middlewares/requireAuth";
+import { requireAuth } from "../../middlewares/requireAuth.js";
 import {
   createApplicationHandler,
   deleteApplicationHandler,
@@ -7,10 +7,10 @@ import {
   getApplicationsHandler,
   getUserApplicationsOverviewHandler,
   updateApplicationHandler,
-} from "./applications.controller";
-import { validateSchema } from "../../middlewares/validateSchema";
-import { insertApplicationsSchema } from "./applications.schema";
-import { verifyUser } from "../../middlewares/verifyUser";
+} from "./applications.controller.js";
+import { validateSchema } from "../../middlewares/validateSchema.js";
+import { insertApplicationsSchema } from "./applications.schema.js";
+import { verifyUser } from "../../middlewares/verifyUser.js";
 
 export const applicationsRouter = Router();
 
