@@ -135,6 +135,12 @@ export const CreateApplication = ({ close, isOpen, userId }: CreateApplicationPr
           fieldError={errors.expectedSalary}
           containerClassName="col-span-2"
         />
+        <div className="col-span-3 py-2">
+          <label className="flex items-center gap-2 text-sm">
+            <input type="checkbox" {...register("isPublic")} className="h-5 w-5" />
+            Public
+          </label>
+        </div>
 
         <Button type="submit" disabled={isLoading} className="col-span-4 justify-self-end px-16">
           Create

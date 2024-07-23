@@ -75,7 +75,7 @@ export const UserApplications = ({ open, userId }: UserApplicationsProps) => {
   return (
     <section className="flex flex-col p-4">
       <div className="mb-4 flex items-center justify-between">
-        <h2 className="text-sm font-semibold md:text-2xl">Recent Applications</h2>
+        <h2 className="text-sm font-semibold md:text-2xl">Your Recent Applications</h2>
 
         <Button onClick={open} className="px-2">
           Create

@@ -9,9 +9,9 @@ import {
 } from "./applications.service";
 import { AppError } from "../../utils/AppError";
 
-export const getApplicationsHandler = async (_req: Request, res: Response, next: NextFunction) => {
+export const getApplicationsHandler = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const data = await getApplications();
+    const data = await getApplications(req.query);
 
     return res.status(200).json(data);
   } catch (error) {

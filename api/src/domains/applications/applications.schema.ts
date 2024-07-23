@@ -1,6 +1,15 @@
 import { createId } from "@paralleldrive/cuid2";
 import { relations } from "drizzle-orm";
-import { integer, pgEnum, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
+import {
+  bit,
+  boolean,
+  integer,
+  pgEnum,
+  pgTable,
+  text,
+  timestamp,
+  varchar,
+} from "drizzle-orm/pg-core";
 import { users } from "../users/users.schema";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 
@@ -24,6 +33,7 @@ export const applications = pgTable("applications", {
   companyName: varchar("company_name", { length: 255 }).notNull(),
   companyWebsite: text("company_website"),
   platform: varchar("platform", { length: 50 }).notNull(),
+  isPublic: boolean("is_public").default(false),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });

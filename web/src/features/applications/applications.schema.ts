@@ -14,6 +14,7 @@ export const applicationSchema = z.object({
   applicationDate: z.date(),
   platform: z.string().min(1).max(50),
   expectedSalary: z.number(),
+  isPublic: z.boolean(),
 });
 
 export type ApplicationInputs = z.infer<typeof applicationSchema>;

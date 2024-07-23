@@ -8,8 +8,22 @@ export const createApplication = async (payload: InferInsertModel<typeof applica
   return query[0];
 };
 
-export const getApplications = async () => {
-  return await db.query.applications.findMany();
+export const getApplications = async (queryParams?: Record<string, unknown>) => {
+  const isPublic = queryParams?.isPublic ? !!queryParams.isPublic : false;
+
+  return await db.transaction(async (tx) => {
+    const data = await tx.query.applications.findMany({
+      where: (applications, { eq }) => eq(applications.isPublic, isPublic),
+    });
+
+    const count = await tx
+      .select({ count: sql`count(*)` })
+      .from(applications)
+      .where(eq(applications.isPublic, isPublic))
+      .then((result) => Number(result[0]?.count));
+
+    return { data, count };
+  });
 };
 
 export const getApplicationsByUser = async (

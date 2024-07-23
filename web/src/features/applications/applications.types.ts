@@ -14,4 +14,5 @@ export type Application = {
   platform: string;
   createdAt: Date;
   updatedAt: Date;
+  isPublic: boolean;
 };
