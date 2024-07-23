@@ -16,16 +16,16 @@ const columns = [
     cell: (info) => info.getValue(),
   }),
   columnHelper.accessor("role", {
-    header: "Role",
+    header: "Job Title",
     cell: (info) => info.getValue(),
   }),
   columnHelper.accessor("status", {
     header: "Status",
-    cell: (info) => <span className="rounded-full border px-4 py-1.5 text-sm">{info.getValue()}</span>,
+    cell: (info) => <span className="rounded-full border px-2 py-1 text-center text-xs">{info.getValue()}</span>,
   }),
   columnHelper.accessor("applicationDate", {
     header: "Application Date",
-    cell: (info) => format(info.getValue(), "yyyy-MMM-dd"),
+    cell: (info) => format(info.getValue(), "MMM-dd-yyyy"),
   }),
 ];
 
@@ -40,18 +40,10 @@ export const UserApplications = ({ open, userId }: UserApplicationsProps) => {
     pageSize: 5,
   });
 
-  const {
-    data: userApplications,
-    error,
-    isFetching,
-  } = useUserApplications(userId, {
+  const { data: userApplications } = useUserApplications(userId, {
     page: pagination.pageIndex + 1,
     pageSize: pagination.pageSize,
   });
-
-  if (error && !isFetching) {
-    throw error;
-  }
 
   const table = useReactTable({
     data: userApplications.data ?? [],
@@ -66,9 +58,12 @@ export const UserApplications = ({ open, userId }: UserApplicationsProps) => {
   });
 
   return (
-    <section className="flex flex-col p-4">
-      <div className="mb-4 flex items-center justify-between">
-        <h2 className="text-sm font-semibold md:text-2xl">Your Recent Applications</h2>
+    <section className="flex flex-col rounded border bg-white p-8 shadow">
+      <div className="mb-8 flex items-center justify-between">
+        <div>
+          <h2 className="text-sm font-semibold md:text-xl">Your Recent Applications</h2>
+          <p className="text-sm text-gray-500">Your most recent job applications</p>
+        </div>
 
         <Button onClick={open} className="px-2">
           Create
