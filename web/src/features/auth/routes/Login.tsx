@@ -50,12 +50,7 @@ export const Login = () => {
 
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <InputField label="Username" {...register("username")} fieldError={errors.username} />
-        <InputField
-          label="Password"
-          type="password"
-          {...register("password")}
-          fieldError={errors.password}
-        />
+        <InputField label="Password" type="password" {...register("password")} fieldError={errors.password} />
 
         <button type="submit" className="self-center rounded bg-accent px-4 py-1.5 text-white">
           Sign In

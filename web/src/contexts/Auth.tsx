@@ -38,9 +38,5 @@ export const AuthContextProvider = () => {
     checkAuth();
   }, []);
 
-  return (
-    <AuthContext.Provider value={contextValue}>
-      {!isInitialLoading && <Outlet />}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={contextValue}>{!isInitialLoading && <Outlet />}</AuthContext.Provider>;
 };

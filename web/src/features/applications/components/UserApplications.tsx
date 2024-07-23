@@ -1,9 +1,4 @@
-import {
-  createColumnHelper,
-  getCoreRowModel,
-  PaginationState,
-  useReactTable,
-} from "@tanstack/react-table";
+import { createColumnHelper, getCoreRowModel, PaginationState, useReactTable } from "@tanstack/react-table";
 import { Application } from "../applications.types";
 import { format } from "date-fns";
 import { useUserApplications } from "../hooks/useUserApplications";
@@ -26,9 +21,7 @@ const columns = [
   }),
   columnHelper.accessor("status", {
     header: "Status",
-    cell: (info) => (
-      <span className="rounded-full border px-4 py-1.5 text-sm">{info.getValue()}</span>
-    ),
+    cell: (info) => <span className="rounded-full border px-4 py-1.5 text-sm">{info.getValue()}</span>,
   }),
   columnHelper.accessor("applicationDate", {
     header: "Application Date",
@@ -94,9 +87,7 @@ export const UserApplications = ({ open, userId }: UserApplicationsProps) => {
               <div className="col-span-1 flex flex-col items-end">
                 <p className="text-xs">{item.platform}</p>
                 <p className="text-xs">{format(item.applicationDate, "MMM dd yyyy")}</p>
-                <p className="rounded-full border bg-gray-300 px-2 text-xs text-black shadow">
-                  {item.status}
-                </p>
+                <p className="rounded-full border bg-gray-300 px-2 text-xs text-black shadow">{item.status}</p>
               </div>
             </li>
           ))}

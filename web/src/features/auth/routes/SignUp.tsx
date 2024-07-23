@@ -43,12 +43,7 @@ export const SignUp = () => {
         <InputField label="Email" {...register("email")} fieldError={errors.email} />
 
         <InputField label="Username" {...register("username")} fieldError={errors.username} />
-        <InputField
-          label="Password"
-          type="password"
-          {...register("password")}
-          fieldError={errors.password}
-        />
+        <InputField label="Password" type="password" {...register("password")} fieldError={errors.password} />
 
         <button type="submit" className="self-center rounded bg-accent px-4 py-1.5 text-white">
           Sign Up

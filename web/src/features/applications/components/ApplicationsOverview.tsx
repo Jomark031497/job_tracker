@@ -31,10 +31,7 @@ export const ApplicationsOverview = ({ userId }: ApplicationsOverview) => {
           percentage: "+ 50% from last month",
         },
       ].map((item) => (
-        <div
-          key={item.label}
-          className="col-span-2 flex-1 rounded border bg-white p-4 shadow md:col-span-1"
-        >
+        <div key={item.label} className="col-span-2 flex-1 rounded border bg-white p-4 shadow md:col-span-1">
           <h2 className="mb-4 text-xs md:text-base">{item.label}</h2>
           <p className="text-md font-bold md:text-2xl">{item.data}</p>
           <p className="text-xs text-gray-500 md:text-sm">{item.percentage}</p>
