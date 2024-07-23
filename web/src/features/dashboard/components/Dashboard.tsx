@@ -5,7 +5,10 @@ import { useToggle } from "../../miscs/hooks/useToggle";
 import { ErrorBoundary } from "react-error-boundary";
 import { QueryErrorResetBoundary } from "@tanstack/react-query";
 import { Button } from "../../../components/ui/Button";
-import { ApplicationsOverview } from "../../applications/components/ApplicationsOverview";
+import {
+  ApplicationsOverview,
+  ApplicationsOverviewSkeleton,
+} from "../../applications/components/ApplicationsOverview";
 import { useApplications } from "../../applications/hooks/useApplications";
 import { createColumnHelper, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { Application } from "../../applications/applications.types";
@@ -73,13 +76,15 @@ export const Dashboard = () => {
           <ErrorBoundary
             onReset={reset}
             fallbackRender={({ resetErrorBoundary }) => (
-              <div>
-                User Application Failed
-                <Button onClick={() => resetErrorBoundary()}>Try again</Button>
+              <div className="flex flex-col items-center border p-4">
+                <p className="italic text-red-500">Unable to fetch applications overview</p>
+                <Button className="px-4" onClick={() => resetErrorBoundary()}>
+                  Try again
+                </Button>
               </div>
             )}
           >
-            <Suspense fallback={<>Loading...</>}>
+            <Suspense fallback={<ApplicationsOverviewSkeleton />}>
               <ApplicationsOverview userId={user.id} />
             </Suspense>
           </ErrorBoundary>
