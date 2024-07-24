@@ -2,7 +2,7 @@ import { pgEnum, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
 import { createId } from "@paralleldrive/cuid2";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { relations } from "drizzle-orm";
-import { applications } from "../applications/applications.schema.js";
+import { jobApplications } from "../job-applications/job-applications.schema";
 
 const ROLES = ["user", "admin", "superadmin"] as const;
 
@@ -22,7 +22,7 @@ export const users = pgTable("users", {
 });
 
 export const usersRelations = relations(users, ({ many }) => ({
-  applications: many(applications),
+  applications: many(jobApplications),
 }));
 
 export const insertUserSchema = createInsertSchema(users, {

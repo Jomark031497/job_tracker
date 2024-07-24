@@ -4,10 +4,10 @@ import {
   loginUserHandler,
   logoutUserHandler,
   signUpUserHandler,
-} from "./auth.controller.js";
-import { validateSchema } from "../../middlewares/validateSchema.js";
-import { insertUserSchema, selectUserSchema } from "../users/users.schema.js";
-import { requireAuth } from "../../middlewares/requireAuth.js";
+} from "./auth.controller";
+import { validateSchema } from "../../middlewares/validateSchema";
+import { insertUserSchema, selectUserSchema } from "../users/users.schema";
+import { requireAuth } from "../../middlewares/requireAuth";
 
 export const authRouter = Router();
 

@@ -1,8 +1,8 @@
 import express from "express";
-import { logger } from "./lib/logger.js";
+import { logger } from "./lib/logger";
 import cors from "cors";
-import { initializeRoutes } from "./routes.js";
-import { errorHandler } from "./middlewares/errorHandler.js";
+import { initializeRoutes } from "./routes";
+import { errorHandler } from "./middlewares/errorHandler";
 
 async function main() {
   const app = express();

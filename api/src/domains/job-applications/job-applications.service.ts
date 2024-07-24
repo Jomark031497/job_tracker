@@ -1,32 +1,32 @@
 import { and, eq, InferInsertModel, sql } from "drizzle-orm";
-import { applications } from "./applications.schema.js";
-import { db } from "../../db/index.js";
-import { AppError } from "../../utils/AppError.js";
+import { jobApplications } from "./job-applications.schema";
+import { db } from "../../db";
+import { AppError } from "../../utils/AppError";
 
-export const createApplication = async (payload: InferInsertModel<typeof applications>) => {
-  const query = await db.insert(applications).values(payload).returning();
+export const createJobApplication = async (payload: InferInsertModel<typeof jobApplications>) => {
+  const query = await db.insert(jobApplications).values(payload).returning();
   return query[0];
 };
 
-export const getApplications = async (queryParams?: Record<string, unknown>) => {
+export const getJobApplications = async (queryParams?: Record<string, unknown>) => {
   const isPublic = queryParams?.isPublic ? !!queryParams.isPublic : false;
 
   return await db.transaction(async (tx) => {
-    const data = await tx.query.applications.findMany({
+    const data = await tx.query.jobApplications.findMany({
       where: (applications, { eq }) => eq(applications.isPublic, isPublic),
     });
 
     const count = await tx
       .select({ count: sql`count(*)` })
-      .from(applications)
-      .where(eq(applications.isPublic, isPublic))
+      .from(jobApplications)
+      .where(eq(jobApplications.isPublic, isPublic))
       .then((result) => Number(result[0]?.count));
 
     return { data, count };
   });
 };
 
-export const getApplicationsByUser = async (
+export const getJobApplicationsByUser = async (
   userId: string,
   queryParams?: Record<string, unknown>
 ) => {
@@ -34,7 +34,7 @@ export const getApplicationsByUser = async (
   const page = queryParams?.page ? parseInt(queryParams.page as string) : 1;
 
   const query = await db.transaction(async (tx) => {
-    const data = await tx.query.applications.findMany({
+    const data = await tx.query.jobApplications.findMany({
       where: (applications, { eq }) => eq(applications.userId, userId),
       orderBy: (applications, { desc }) => desc(applications.applicationDate),
       limit: pageSize,
@@ -43,8 +43,8 @@ export const getApplicationsByUser = async (
 
     const count = await tx
       .select({ count: sql`count(*)` })
-      .from(applications)
-      .where(eq(applications.userId, userId))
+      .from(jobApplications)
+      .where(eq(jobApplications.userId, userId))
       .then((result) => Number(result[0]?.count));
 
     return { data, count };
@@ -53,30 +53,30 @@ export const getApplicationsByUser = async (
   return query;
 };
 
-export const getUserApplicationsOverview = async (userId: string) => {
+export const getUserJobApplicationsOverview = async (userId: string) => {
   const query = await db.transaction(async (tx) => {
     const count = await tx
       .select({ count: sql`count(*)` })
-      .from(applications)
-      .where(eq(applications.userId, userId))
+      .from(jobApplications)
+      .where(eq(jobApplications.userId, userId))
       .then((result) => Number(result[0]?.count));
 
     const submitted = await tx
       .select({ count: sql`count(*)` })
-      .from(applications)
-      .where(and(eq(applications.userId, userId), eq(applications.status, "submitted")))
+      .from(jobApplications)
+      .where(and(eq(jobApplications.userId, userId), eq(jobApplications.status, "submitted")))
       .then((result) => Number(result[0]?.count));
 
     const inProgress = await tx
       .select({ count: sql`count(*)` })
-      .from(applications)
-      .where(and(eq(applications.userId, userId), eq(applications.status, "in progress")))
+      .from(jobApplications)
+      .where(and(eq(jobApplications.userId, userId), eq(jobApplications.status, "in progress")))
       .then((result) => Number(result[0]?.count));
 
     const rejected = await tx
       .select({ count: sql`count(*)` })
-      .from(applications)
-      .where(and(eq(applications.userId, userId), eq(applications.status, "rejected")))
+      .from(jobApplications)
+      .where(and(eq(jobApplications.userId, userId), eq(jobApplications.status, "rejected")))
       .then((result) => Number(result[0]?.count));
 
     return {
@@ -90,21 +90,21 @@ export const getUserApplicationsOverview = async (userId: string) => {
   return query;
 };
 
-export const getApplicationById = async (id: string) => {
-  return await db.query.applications.findFirst({
+export const getJobApplicationById = async (id: string) => {
+  return await db.query.jobApplications.findFirst({
     where: (applications, { eq }) => eq(applications.id, id),
   });
 };
 
-export const updateApplication = async (
+export const updateJobApplication = async (
   applicationId: string,
-  payload: InferInsertModel<typeof applications>
+  payload: InferInsertModel<typeof jobApplications>
 ) => {
-  const existingApplication = await getApplicationById(applicationId);
+  const existingApplication = await getJobApplicationById(applicationId);
   if (!existingApplication) throw new AppError(404, "Application id not found");
 
   const updatedApplication = await db
-    .update(applications)
+    .update(jobApplications)
     .set({
       ...existingApplication,
       ...payload,
@@ -114,11 +114,11 @@ export const updateApplication = async (
   return updatedApplication;
 };
 
-export const deleteApplicationById = async (applicationId: string) => {
-  const existingApplication = await getApplicationById(applicationId);
+export const deleteJobApplicationById = async (applicationId: string) => {
+  const existingApplication = await getJobApplicationById(applicationId);
   if (!existingApplication) throw new AppError(404, "application id not found");
 
-  await db.delete(applications).where(eq(applications.id, applicationId));
+  await db.delete(jobApplications).where(eq(jobApplications.id, applicationId));
 
   return { message: "application successfully deleted" };
 };

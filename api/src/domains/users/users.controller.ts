@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { createUser, deleteUser, getUsers, updateUser } from "./users.service.js";
+import { createUser, deleteUser, getUsers, updateUser } from "./users.service";
 
 export const getUsersHandler = async (_req: Request, res: Response, next: NextFunction) => {
   try {

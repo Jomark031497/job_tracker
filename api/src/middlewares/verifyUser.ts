@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { AppError } from "../utils/AppError.js";
+import { AppError } from "../utils/AppError";
 
 export const verifyUser = async (req: Request, res: Response, next: NextFunction) => {
   if (!res.locals.user) {

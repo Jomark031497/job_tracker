@@ -3,11 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "dist/app.js",
-  "type": "module",
   "scripts": {
     "build": "tsc",
     "start": "node --env-file=.env.prod dist/app.js",
-    "dev": "tsx watch --env-file=.env.local src/app.ts",
+    "dev": "tsx watch --env-file=.env src/app.ts",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio"
   },
