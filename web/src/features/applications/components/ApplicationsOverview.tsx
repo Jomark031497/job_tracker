@@ -12,7 +12,7 @@ export const ApplicationsOverview = ({ userId }: ApplicationsOverview) => {
   const { data } = useUserApplicationsOverview(userId);
 
   return (
-    <section className="mb-8 grid grid-cols-4 gap-4">
+    <section className="grid grid-cols-4 gap-4">
       {[
         {
           label: "Total Applications",
