@@ -5,10 +5,10 @@ import { Modal } from "../../../components/ui/Modal";
 import { SelectField } from "../../../components/ui/SelectField";
 import { TextArea } from "../../../components/ui/TextArea";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { APPLICATION_STATUS, ApplicationInputs, applicationSchema } from "../applications.schema";
+import { JOB_APPLICATION_STATUS, JobApplicationInputs, jobApplicationSchema } from "../applications.schema";
 import { __API_URL__ } from "../../../constants";
 import toast from "react-hot-toast";
-import { createApplication } from "../handlers/createApplication";
+import { createJobApplication } from "../handlers/createJobApplication";
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../../../lib/queryClient";
 
@@ -18,22 +18,22 @@ type CreateApplicationProps = {
   userId: string;
 };
 
-export const CreateApplication = ({ close, isOpen, userId }: CreateApplicationProps) => {
+export const CreateJobApplication = ({ close, isOpen, userId }: CreateApplicationProps) => {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors, isLoading },
-  } = useForm<ApplicationInputs>({
-    resolver: zodResolver(applicationSchema),
+  } = useForm<JobApplicationInputs>({
+    resolver: zodResolver(jobApplicationSchema),
     defaultValues: {
       expectedSalary: 0,
     },
   });
 
   const mutation = useMutation({
-    mutationFn: (newApplication: ApplicationInputs & { userId: string }) => {
-      return createApplication(newApplication);
+    mutationFn: (newApplication: JobApplicationInputs & { userId: string }) => {
+      return createJobApplication(newApplication);
     },
     onError: (error) => {
       toast.error(error.message);
@@ -51,7 +51,7 @@ export const CreateApplication = ({ close, isOpen, userId }: CreateApplicationPr
     },
   });
 
-  const onSubmit: SubmitHandler<ApplicationInputs> = async (values) => {
+  const onSubmit: SubmitHandler<JobApplicationInputs> = async (values) => {
     mutation.mutate({
       ...values,
       userId,
@@ -104,7 +104,7 @@ export const CreateApplication = ({ close, isOpen, userId }: CreateApplicationPr
           fieldError={errors.status}
           containerClassName="col-span-2"
         >
-          {APPLICATION_STATUS.map((item) => (
+          {JOB_APPLICATION_STATUS.map((item) => (
             <option key={item} value={item}>
               {item}
             </option>

@@ -2,7 +2,7 @@ import { __API_URL__ } from "../../../constants";
 import { SearchParams } from "../../miscs/misc.types";
 import { Application } from "../applications.types";
 
-export const getUserApplications = async (id: string, query?: SearchParams) => {
+export const getUserJobApplications = async (id: string, query?: SearchParams) => {
   const url = new URL(`/api/applications/user/${id}`, __API_URL__);
 
   query?.page && url.searchParams.set("page", query.page.toString());

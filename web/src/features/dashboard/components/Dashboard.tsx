@@ -4,13 +4,16 @@ import { useToggle } from "../../miscs/hooks/useToggle";
 import { lazily } from "react-lazily";
 import { WithErrorBoundary } from "../../miscs/components/WithErrorBoundary";
 import { Navigate } from "react-router-dom";
-import { PublicApplications } from "../../applications/components/PublicApplications";
 
-const { CreateApplication } = lazily(() => import("../../applications/components/CreateApplication"));
-const { ApplicationsOverview, ApplicationsOverviewSkeleton } = lazily(
-  () => import("../../applications/components/ApplicationsOverview"),
+const { CreateJobApplication: CreateApplication } = lazily(
+  () => import("../../job-applications/components/CreateJobApplication"),
 );
-const { UserApplications } = lazily(() => import("../../applications/components/UserApplications"));
+const { UserJobApplicationsOverview: ApplicationsOverview, ApplicationsOverviewSkeleton } = lazily(
+  () => import("../../job-applications/components/UserJobApplicationsOverview"),
+);
+const { UserJobApplications: UserApplications } = lazily(
+  () => import("../../job-applications/components/UserJobApplications"),
+);
 
 export const Dashboard = () => {
   const { user } = useAuth();
@@ -28,11 +31,8 @@ export const Dashboard = () => {
           <ApplicationsOverview userId={user.id} />
         </Suspense>
       </WithErrorBoundary>
-
+      x
       <UserApplications userId={user.id} open={open} />
-
-      <PublicApplications />
-
       <CreateApplication close={close} isOpen={isOpen} userId={user.id} />
     </div>
   );

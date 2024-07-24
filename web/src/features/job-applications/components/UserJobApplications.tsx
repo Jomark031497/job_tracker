@@ -1,12 +1,12 @@
-import { createColumnHelper, getCoreRowModel, PaginationState, useReactTable } from "@tanstack/react-table";
+import { createColumnHelper, flexRender, getCoreRowModel, PaginationState, useReactTable } from "@tanstack/react-table";
 import { Application } from "../applications.types";
 import { format } from "date-fns";
-import { useUserApplications } from "../hooks/useUserApplications";
+import { useUserJobApplications } from "../hooks/useUserJobApplications";
 import { useState } from "react";
 import { Button } from "../../../components/ui/Button";
 import { formatToCurrency } from "../../../utils/formatToCurrency";
 import { Pagination } from "../../../components/ui/Pagination";
-import { Table } from "../../../components/ui/Table";
+import { useNavigate } from "react-router-dom";
 
 const columnHelper = createColumnHelper<Application>();
 
@@ -29,18 +29,20 @@ const columns = [
   }),
 ];
 
-type UserApplicationsProps = {
+type UserJobApplicationsProps = {
   open: () => void;
   userId: string;
 };
 
-export const UserApplications = ({ open, userId }: UserApplicationsProps) => {
+export const UserJobApplications = ({ open, userId }: UserJobApplicationsProps) => {
+  const navigate = useNavigate();
+
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 5,
   });
 
-  const { data: userApplications } = useUserApplications(userId, {
+  const { data: userApplications } = useUserJobApplications(userId, {
     page: pagination.pageIndex + 1,
     pageSize: pagination.pageSize,
   });
@@ -89,8 +91,37 @@ export const UserApplications = ({ open, userId }: UserApplicationsProps) => {
         </ul>
       </div>
 
-      <div className="hidden md:flex md:flex-col">
-        <Table table={table} />
+      <div className="hidden h-[298px] md:flex md:flex-col">
+        <table className="w-full">
+          <thead>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <th key={header.id} className="pb-2 text-start font-normal text-gray-500">
+                    {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map((row) => (
+              <tr
+                key={row.id}
+                onClick={() => {
+                  navigate(`/applications/${row.original.id}`);
+                }}
+                className="border-t transition-all hover:cursor-pointer hover:bg-gray-100 hover:shadow"
+              >
+                {row.getVisibleCells().map((cell) => (
+                  <td key={cell.id} className="py-4 text-sm font-medium">
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
       <Pagination count={userApplications?.count || 0} pagination={pagination} table={table} />

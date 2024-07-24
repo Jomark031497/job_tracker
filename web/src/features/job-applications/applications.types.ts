@@ -1,9 +1,9 @@
-import { ApplicationStatus } from "./applications.schema";
+import { JobApplicationStatus } from "./applications.schema";
 
 export type Application = {
   id: string;
   userId: string;
-  status: ApplicationStatus;
+  status: JobApplicationStatus;
   applicationDate: Date;
   description?: string | null;
   role: string;

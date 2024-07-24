@@ -1,8 +1,8 @@
 import { __API_URL__ } from "../../../constants";
-import { ApplicationInputs } from "../applications.schema";
+import { JobApplicationInputs } from "../applications.schema";
 import { Application } from "../applications.types";
 
-export const createApplication = async (payload: ApplicationInputs & { userId: string }) => {
+export const createJobApplication = async (payload: JobApplicationInputs & { userId: string }) => {
   const url = new URL("/api/applications", __API_URL__);
 
   const res = await fetch(url, {

@@ -4,11 +4,11 @@ import { FaRegClock } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 import { FiSend } from "react-icons/fi";
 
-type ApplicationsOverview = {
+type UserJobApplicationsOverviewProps = {
   userId: string;
 };
 
-export const ApplicationsOverview = ({ userId }: ApplicationsOverview) => {
+export const UserJobApplicationsOverview = ({ userId }: UserJobApplicationsOverviewProps) => {
   const { data } = useUserApplicationsOverview(userId);
 
   return (

@@ -1,11 +1,11 @@
 import { z } from "zod";
 
-export const APPLICATION_STATUS = ["submitted", "in progress", "rejected", "hired"] as const;
+export const JOB_APPLICATION_STATUS = ["submitted", "in progress", "rejected", "hired"] as const;
 
-export type ApplicationStatus = (typeof APPLICATION_STATUS)[number];
+export type JobApplicationStatus = (typeof JOB_APPLICATION_STATUS)[number];
 
-export const applicationSchema = z.object({
-  status: z.enum(APPLICATION_STATUS),
+export const jobApplicationSchema = z.object({
+  status: z.enum(JOB_APPLICATION_STATUS),
   companyName: z.string().min(1).max(255),
   companyWebsite: z.string().nullish(),
   contactPerson: z.string().max(255).nullish(),
@@ -17,4 +17,4 @@ export const applicationSchema = z.object({
   isPublic: z.boolean(),
 });
 
-export type ApplicationInputs = z.infer<typeof applicationSchema>;
+export type JobApplicationInputs = z.infer<typeof jobApplicationSchema>;
