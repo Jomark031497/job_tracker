@@ -3,7 +3,7 @@ import { JobApplicationInputs } from "../applications.schema";
 import { Application } from "../applications.types";
 
 export const createJobApplication = async (payload: JobApplicationInputs & { userId: string }) => {
-  const url = new URL("/api/applications", __API_URL__);
+  const url = new URL("/api/job-applications", __API_URL__);
 
   const res = await fetch(url, {
     method: "POST",
