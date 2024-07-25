@@ -15,6 +15,7 @@ export const jobApplicationSchema = z.object({
   platform: z.string().min(1).max(50),
   expectedSalary: z.number(),
   isPublic: z.boolean(),
+  companyAddress: z.string().max(300).nullish(),
 });
 
 export type JobApplicationInputs = z.infer<typeof jobApplicationSchema>;

@@ -1,6 +1,6 @@
 import { __API_URL__ } from "../../../constants";
 import { SearchParams } from "../../miscs/misc.types";
-import { Application } from "../applications.types";
+import { Application } from "../job-applications.types";
 
 export const getUserJobApplications = async (id: string, query?: SearchParams) => {
   const url = new URL(`/api/job-applications/user/${id}`, __API_URL__);

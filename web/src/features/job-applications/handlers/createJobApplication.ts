@@ -1,6 +1,6 @@
 import { __API_URL__ } from "../../../constants";
-import { JobApplicationInputs } from "../applications.schema";
-import { Application } from "../applications.types";
+import { JobApplicationInputs } from "../job-applications.schema";
+import { Application } from "../job-applications.types";
 
 export const createJobApplication = async (payload: JobApplicationInputs & { userId: string }) => {
   const url = new URL("/api/job-applications", __API_URL__);

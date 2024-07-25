@@ -5,7 +5,7 @@ import { Modal } from "../../../components/ui/Modal";
 import { SelectField } from "../../../components/ui/SelectField";
 import { TextArea } from "../../../components/ui/TextArea";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { JOB_APPLICATION_STATUS, JobApplicationInputs, jobApplicationSchema } from "../applications.schema";
+import { JOB_APPLICATION_STATUS, JobApplicationInputs, jobApplicationSchema } from "../job-applications.schema";
 import { __API_URL__ } from "../../../constants";
 import toast from "react-hot-toast";
 import { createJobApplication } from "../handlers/createJobApplication";
@@ -68,6 +68,15 @@ export const CreateJobApplication = ({ close, isOpen, userId }: CreateApplicatio
           fieldError={errors.companyName}
           containerClassName="col-span-4"
         />
+
+        <InputField
+          label="Company Address"
+          placeholder="Maligaya St., Sindalan, Pampanga"
+          {...register("companyAddress")}
+          fieldError={errors.companyAddress}
+          containerClassName="col-span-4"
+        />
+
         <InputField
           label="Company Website"
           placeholder="www.acme.com"

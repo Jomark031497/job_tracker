@@ -1,5 +1,5 @@
 import { createColumnHelper, flexRender, getCoreRowModel, PaginationState, useReactTable } from "@tanstack/react-table";
-import { Application } from "../applications.types";
+import { Application } from "../job-applications.types";
 import { format } from "date-fns";
 import { useUserJobApplications } from "../hooks/useUserJobApplications";
 import { useState } from "react";

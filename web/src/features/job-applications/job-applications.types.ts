@@ -1,16 +1,17 @@
-import { JobApplicationStatus } from "./applications.schema";
+import { JobApplicationStatus } from "./job-applications.schema";
 
 export type Application = {
   id: string;
   userId: string;
   status: JobApplicationStatus;
   applicationDate: Date;
-  description?: string | null;
+  description: string | null;
   role: string;
   expectedSalary: number;
-  contactPerson?: string | null;
+  contactPerson: string | null;
   companyName: string;
-  companyWebsite?: string | null;
+  companyWebsite: string | null;
+  companyAddress: string | null;
   platform: string;
   createdAt: Date;
   updatedAt: Date;
