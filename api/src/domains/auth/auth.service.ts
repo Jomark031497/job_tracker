@@ -25,9 +25,7 @@ export const signUpUser = async (payload: InferInsertModel<typeof users>) => {
   return excludeFields(createdUser, ["password"]);
 };
 
-export const loginUser = async (
-  payload: Pick<InferInsertModel<typeof users>, "username" | "password">
-) => {
+export const loginUser = async (payload: Pick<InferInsertModel<typeof users>, "username" | "password">) => {
   const user = await getUserByUsername(payload.username);
 
   if (!user) throw new AppError(404, "Invalid username/password");

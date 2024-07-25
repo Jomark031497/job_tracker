@@ -2,11 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { getAuthenticatedUser, loginUser, signUpUser } from "./auth.service";
 import { lucia } from "../../lib/lucia";
 
-export const authenticatedUserHandler = async (
-  _req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const authenticatedUserHandler = async (_req: Request, res: Response, next: NextFunction) => {
   try {
     const user = res.locals.user;
     if (!user) return res.status(401).json({ message: "unauthorized" });
@@ -25,9 +21,7 @@ export const signUpUserHandler = async (req: Request, res: Response, next: NextF
 
     const session = await lucia.createSession(user.id, {});
 
-    return res
-      .appendHeader("Set-Cookie", lucia.createSessionCookie(session.id).serialize())
-      .json(user);
+    return res.appendHeader("Set-Cookie", lucia.createSessionCookie(session.id).serialize()).json(user);
   } catch (error) {
     return next(error);
   }
@@ -39,9 +33,7 @@ export const loginUserHandler = async (req: Request, res: Response, next: NextFu
 
     const session = await lucia.createSession(user.id, {});
 
-    return res
-      .appendHeader("Set-Cookie", lucia.createSessionCookie(session.id).serialize())
-      .json(user);
+    return res.appendHeader("Set-Cookie", lucia.createSessionCookie(session.id).serialize()).json(user);
   } catch (error) {
     return next(error);
   }

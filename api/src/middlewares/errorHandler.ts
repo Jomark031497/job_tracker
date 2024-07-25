@@ -2,12 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { AppError } from "../utils/AppError";
 import { logger } from "../lib/logger";
 
-export const errorHandler = (
-  error: AppError | Error,
-  _req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const errorHandler = (error: AppError | Error, _req: Request, res: Response, next: NextFunction) => {
   if (!error) next();
 
   logger.error(error);

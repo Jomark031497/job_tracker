@@ -15,7 +15,7 @@ async function main() {
     cors({
       origin: process.env.CLIENT_URL,
       credentials: true,
-    })
+    }),
   );
 
   initializeRoutes(app);

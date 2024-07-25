@@ -26,10 +26,7 @@ export const getJobApplications = async (queryParams?: Record<string, unknown>) 
   });
 };
 
-export const getJobApplicationsByUser = async (
-  userId: string,
-  queryParams?: Record<string, unknown>
-) => {
+export const getJobApplicationsByUser = async (userId: string, queryParams?: Record<string, unknown>) => {
   const pageSize = queryParams?.pageSize ? parseInt(queryParams.pageSize as string, 10) : 5;
   const page = queryParams?.page ? parseInt(queryParams.page as string) : 1;
 
@@ -96,9 +93,17 @@ export const getJobApplicationById = async (id: string) => {
   });
 };
 
+export const getUserJobApplicationById = async (id: string, userId: string) => {
+  const query = await db.query.jobApplications.findFirst({
+    where: (applications, { eq, and }) => and(eq(applications.id, id), eq(applications.userId, userId)),
+  });
+
+  if (!query) throw new AppError(404, "Job Application not found/Access denied");
+};
+
 export const updateJobApplication = async (
   applicationId: string,
-  payload: InferInsertModel<typeof jobApplications>
+  payload: InferInsertModel<typeof jobApplications>,
 ) => {
   const existingApplication = await getJobApplicationById(applicationId);
   if (!existingApplication) throw new AppError(404, "Application id not found");

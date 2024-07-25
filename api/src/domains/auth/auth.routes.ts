@@ -1,10 +1,5 @@
 import { Router } from "express";
-import {
-  authenticatedUserHandler,
-  loginUserHandler,
-  logoutUserHandler,
-  signUpUserHandler,
-} from "./auth.controller";
+import { authenticatedUserHandler, loginUserHandler, logoutUserHandler, signUpUserHandler } from "./auth.controller";
 import { validateSchema } from "../../middlewares/validateSchema";
 import { insertUserSchema, selectUserSchema } from "../users/users.schema";
 import { requireAuth } from "../../middlewares/requireAuth";
@@ -21,9 +16,9 @@ authRouter.post(
     selectUserSchema.pick({
       username: true,
       password: true,
-    })
+    }),
   ),
-  loginUserHandler
+  loginUserHandler,
 );
 
 authRouter.delete("/logout", requireAuth, logoutUserHandler);
