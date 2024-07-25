@@ -21,7 +21,7 @@ export const Dashboard = () => {
   const { isOpen, open, close } = useToggle();
 
   return (
-    <div className="flex flex-col gap-12">
+    <div className="flex flex-col gap-8 md:gap-12">
       <WithErrorBoundary fallbackMessage="Unable to fetch applications overview">
         <Suspense fallback={<ApplicationsOverviewSkeleton />}>
           <UserJobApplicationsOverview userId={user.id} />
@@ -29,6 +29,7 @@ export const Dashboard = () => {
       </WithErrorBoundary>
 
       <UserJobApplications userId={user.id} open={open} />
+
       <CreateJobApplication close={close} isOpen={isOpen} userId={user.id} />
     </div>
   );

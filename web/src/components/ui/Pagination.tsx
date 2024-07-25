@@ -21,7 +21,7 @@ export const Pagination = <T,>({ table, pagination, count }: PaginationProps<T>)
       <span className="flex items-center gap-1 text-xs md:text-base">
         <div>Page</div>
         <strong>
-          {table.getState().pagination.pageIndex + 1} of {Math.ceil(count / pagination.pageSize)}
+          {count ? table.getState().pagination.pageIndex + 1 : 0} of {Math.ceil(count / pagination.pageSize)}
         </strong>
       </span>
       <Button
