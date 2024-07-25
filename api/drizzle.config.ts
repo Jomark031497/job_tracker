@@ -1,7 +1,7 @@
 import { defineConfig } from "drizzle-kit";
 
 export default defineConfig({
-  schema: "**/*.schema.{js,ts}",
+  schema: "./src/**/*.schema.ts",
   out: "./drizzle",
   verbose: true,
   strict: true,

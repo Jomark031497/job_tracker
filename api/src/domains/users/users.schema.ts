@@ -13,7 +13,7 @@ export const users = pgTable("users", {
     .primaryKey()
     .$defaultFn(() => createId()),
   username: varchar("username", { length: 256 }).notNull().unique(),
-  fullName: varchar("full_name"),
+  fullName: varchar("full_name").default(""),
   email: varchar("email", { length: 256 }).unique().notNull(),
   password: varchar("password", { length: 256 }).notNull(),
   role: rolesEnum("role").default("user"),
