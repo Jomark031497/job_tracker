@@ -4,7 +4,7 @@ import { SearchParams } from "../../miscs/misc.types";
 
 export const useUserJobApplications = (id: string, query?: SearchParams) => {
   return useQuery({
-    queryKey: ["userApplications", id, query],
+    queryKey: ["userJobApplications", id, query],
     queryFn: async () => await getUserJobApplications(id, query),
     placeholderData: keepPreviousData,
   });

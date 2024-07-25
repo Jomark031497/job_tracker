@@ -42,10 +42,10 @@ export const CreateJobApplication = ({ close, isOpen, userId }: CreateApplicatio
       toast.success("Application created");
       reset();
       queryClient.invalidateQueries({
-        queryKey: ["userApplications"],
+        queryKey: ["userJobApplications"],
       });
       queryClient.invalidateQueries({
-        queryKey: ["userApplicationsOverview"],
+        queryKey: ["userJobApplicationsOverview"],
       });
       close();
     },
