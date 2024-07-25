@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { Session, User } from "lucia";
 import { lucia } from "../lib/lucia";
 
-export const requireAuth = async (req: Request, res: Response, next: NextFunction) => {
+export const authenticatedUser = async (req: Request, res: Response, next: NextFunction) => {
   const sessionId = lucia.readSessionCookie(req.headers.cookie ?? "");
   if (!sessionId) {
     res.locals.user = null;

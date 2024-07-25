@@ -1,5 +1,5 @@
 import { createColumnHelper, flexRender, getCoreRowModel, PaginationState, useReactTable } from "@tanstack/react-table";
-import { Application } from "../job-applications.types";
+import { JobApplication } from "../job-applications.types";
 import { format } from "date-fns";
 import { useUserJobApplications } from "../hooks/useUserJobApplications";
 import { useState } from "react";
@@ -8,7 +8,7 @@ import { formatToCurrency } from "../../../utils/formatToCurrency";
 import { Pagination } from "../../../components/ui/Pagination";
 import { Link, useNavigate } from "react-router-dom";
 
-const columnHelper = createColumnHelper<Application>();
+const columnHelper = createColumnHelper<JobApplication>();
 
 const columns = [
   columnHelper.accessor("companyName", {
@@ -79,7 +79,10 @@ export const UserJobApplications = ({ open, userId }: UserJobApplicationsProps) 
             <ul className="flex flex-col gap-2">
               {userJobApplications?.data.map((item) => (
                 <li key={item.id} className="rounded border p-2 shadow">
-                  <Link to={`/applications/${item.id}`} className="grid grid-cols-3 transition-all hover:bg-gray-100">
+                  <Link
+                    to={`/job-applications/${item.id}`}
+                    className="grid grid-cols-3 transition-all hover:bg-gray-100"
+                  >
                     <div className="col-span-2 flex flex-col gap-0.5">
                       <p className="text-xs font-semibold tracking-wide">{item.companyName}</p>
                       <p className="text-xs">{item.role}</p>
@@ -115,7 +118,7 @@ export const UserJobApplications = ({ open, userId }: UserJobApplicationsProps) 
                   <tr
                     key={row.id}
                     onClick={() => {
-                      navigate(`/applications/${row.original.id}`);
+                      navigate(`/job-applications/${row.original.id}`);
                     }}
                     className="border-t transition-all hover:cursor-pointer hover:bg-gray-100 hover:shadow"
                   >

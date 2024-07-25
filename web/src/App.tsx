@@ -27,7 +27,7 @@ const router = createBrowserRouter([
                 element: <Dashboard />,
               },
               {
-                path: "/applications/:id",
+                path: "/job-applications/:id",
                 element: (
                   <WithErrorBoundary fallbackMessage="Unable to fetch job application">
                     <Suspense fallback={<>Loading...</>}>

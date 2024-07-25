@@ -15,8 +15,8 @@ const navLinks = [
     icon: <MdDashboard />,
   },
   {
-    label: "Applications",
-    path: "/applications",
+    label: "Job Applications",
+    path: "/job-applications",
     icon: <FaNetworkWired />,
   },
   {

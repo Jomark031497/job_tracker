@@ -8,9 +8,13 @@ export const JobApplication = () => {
     return null;
   }
 
-  const { data } = useJobApplication(id);
+  const { data: jobApplication } = useJobApplication(id);
 
-  console.log(data);
-
-  return <>{id}</>;
+  return (
+    <>
+      <div>
+        <p>{jobApplication.companyName}</p>
+      </div>
+    </>
+  );
 };

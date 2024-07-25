@@ -102,28 +102,32 @@ export const getUserJobApplicationById = async (id: string, userId: string) => {
 };
 
 export const updateJobApplication = async (
-  applicationId: string,
+  id: string,
+  userId: string,
   payload: InferInsertModel<typeof jobApplications>,
 ) => {
-  const existingApplication = await getJobApplicationById(applicationId);
-  if (!existingApplication) throw new AppError(404, "Application id not found");
-
   const updatedApplication = await db
     .update(jobApplications)
-    .set({
-      ...existingApplication,
-      ...payload,
-    })
+    .set(payload)
+    .where(and(eq(jobApplications.id, id), eq(jobApplications.userId, userId)))
     .returning();
+
+  if (updateJobApplication.length === 0)
+    throw new AppError(404, "Application not found or you don't have permission to update it");
 
   return updatedApplication;
 };
 
-export const deleteJobApplicationById = async (applicationId: string) => {
-  const existingApplication = await getJobApplicationById(applicationId);
+export const deleteJobApplicationById = async (id: string, userId: string) => {
+  const existingApplication = await getJobApplicationById(id);
   if (!existingApplication) throw new AppError(404, "application id not found");
 
-  await db.delete(jobApplications).where(eq(jobApplications.id, applicationId));
+  const query = await db
+    .delete(jobApplications)
+    .where(and(eq(jobApplications.id, id), eq(jobApplications.userId, userId)))
+    .returning();
 
-  return { message: "application successfully deleted" };
+  if (query.length === 0) throw new AppError(404, "Application not found or you don't have permission to delete it");
+
+  return query;
 };

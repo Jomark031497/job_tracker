@@ -1,4 +1,5 @@
 import { __API_URL__ } from "../../../constants";
+import { JobApplication } from "../job-applications.types";
 
 export const getJobApplicationById = async (id: string) => {
   const url = new URL(`/api/job-applications/${id}`, __API_URL__);
@@ -12,5 +13,5 @@ export const getJobApplicationById = async (id: string) => {
 
   if (!res.ok) throw new Error(data.message);
 
-  return data;
+  return data as JobApplication;
 };

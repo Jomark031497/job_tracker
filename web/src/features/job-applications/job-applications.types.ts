@@ -1,6 +1,6 @@
 import { JobApplicationStatus } from "./job-applications.schema";
 
-export type Application = {
+export type JobApplication = {
   id: string;
   userId: string;
   status: JobApplicationStatus;

@@ -1,6 +1,6 @@
 import { __API_URL__ } from "../../../constants";
 import { SearchParams } from "../../miscs/misc.types";
-import { Application } from "../job-applications.types";
+import { JobApplication } from "../job-applications.types";
 
 export const getUserJobApplications = async (id: string, query?: SearchParams) => {
   const url = new URL(`/api/job-applications/user/${id}`, __API_URL__);
@@ -16,5 +16,5 @@ export const getUserJobApplications = async (id: string, query?: SearchParams) =
   const data = await response.json();
 
   if (!response.ok) throw new Error(data.message);
-  return data as { data: Application[]; count: number };
+  return data as { data: JobApplication[]; count: number };
 };
