@@ -3,9 +3,9 @@ import { authenticatedUser } from "../../middlewares/requireAuth.js";
 import {
   createJobApplicationHandler,
   deleteJobApplicationHandler,
-  getJobApplicationsByUserHandler,
-  getJobApplicationsHandler,
-  getJobApplicationByIdHandler,
+  getAllUserJobApplicationsHandler,
+  getAllJobApplicationsHandler,
+  getSingleJobApplicationByIdHandler,
   getUserJobApplicationsOverviewHandler,
   updateJobApplicationHandler,
 } from "./job-applications.controller";
@@ -16,16 +16,13 @@ import { requireAdmin } from "../../middlewares/requireAdmin.js";
 export const jobApplicationsRouter = Router();
 
 // get all job applications (admin only)
-jobApplicationsRouter.get("/", authenticatedUser, requireAdmin, getJobApplicationsHandler);
+jobApplicationsRouter.get("/", authenticatedUser, requireAdmin, getAllJobApplicationsHandler);
 
 // get single job application
-jobApplicationsRouter.get("/:id", authenticatedUser, getJobApplicationByIdHandler);
-
-// get a single job application of a user
-jobApplicationsRouter.get("/user/:userId/:id");
+jobApplicationsRouter.get("/:id", authenticatedUser, getSingleJobApplicationByIdHandler);
 
 // get all job applications of a user
-jobApplicationsRouter.get("/user/:userId", authenticatedUser, getJobApplicationsByUserHandler);
+jobApplicationsRouter.get("/user/:userId", authenticatedUser, getAllUserJobApplicationsHandler);
 
 // get job applications overview of a user
 jobApplicationsRouter.get("/user/:userId/overview", authenticatedUser, getUserJobApplicationsOverviewHandler);

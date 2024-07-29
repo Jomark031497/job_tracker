@@ -18,7 +18,7 @@ export const SelectField = forwardRef<HTMLSelectElement, SelectFieldProps>(
             ref={ref}
             {...rest}
             className={twMerge(
-              "mt-1 block h-10 w-full rounded-lg border-2 bg-white/5 px-3 py-2 text-xs text-gray-500 outline-none transition-all md:text-sm",
+              "mt-1 block w-full rounded-lg border-2 bg-white/5 px-3 py-1.5 text-xs text-gray-500 outline-none transition-all md:text-sm/6",
               "hover:border-primary focus:border-accent",
             )}
           />

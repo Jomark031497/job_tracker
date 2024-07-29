@@ -1,7 +1,7 @@
 import { __API_URL__ } from "../../../constants";
 import { JobApplication } from "../job-applications.types";
 
-export const getJobApplicationById = async (id: string) => {
+export const getSingleUserJobApplication = async (id: string) => {
   const url = new URL(`/api/job-applications/${id}`, __API_URL__);
 
   const res = await fetch(url, {

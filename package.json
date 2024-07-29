@@ -1,0 +1,12 @@
+{
+  "name": "employment-application-tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "cd api && pnpm build && cd .. && cd web && pnpm build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

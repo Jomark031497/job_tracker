@@ -7,7 +7,7 @@ export const RootLayout = () => {
     <>
       <div className="md:flex">
         <Header />
-        <main className="h-screen flex-1 overflow-auto px-4">
+        <main className="min-h-[100vh-64px] flex-1 overflow-auto px-4 md:h-screen">
           <div className="md:h-16" />
           <Outlet />
         </main>

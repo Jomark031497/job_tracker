@@ -11,7 +11,7 @@ import {
 } from "./job-applications.service";
 import { AppError } from "../../utils/AppError";
 
-export const getJobApplicationsHandler = async (req: Request, res: Response, next: NextFunction) => {
+export const getAllJobApplicationsHandler = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const data = await getJobApplications(req.query);
     return res.status(200).json(data);
@@ -20,7 +20,7 @@ export const getJobApplicationsHandler = async (req: Request, res: Response, nex
   }
 };
 
-export const getJobApplicationsByUserHandler = async (req: Request, res: Response, next: NextFunction) => {
+export const getAllUserJobApplicationsHandler = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const data = await getJobApplicationsByUser(<string>req.params.userId, req.query);
     return res.status(200).json(data);
@@ -38,7 +38,7 @@ export const getUserJobApplicationsOverviewHandler = async (req: Request, res: R
   }
 };
 
-export const getJobApplicationByIdHandler = async (req: Request, res: Response, next: NextFunction) => {
+export const getSingleJobApplicationByIdHandler = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const data = await getJobApplicationById(<string>req.params.id);
     return res.status(200).json(data);
@@ -47,9 +47,9 @@ export const getJobApplicationByIdHandler = async (req: Request, res: Response, 
   }
 };
 
-export const getUserJobApplicationByIdHandler = async (req: Request, res: Response, next: NextFunction) => {
+export const getSingleUserJobApplicationByIdHandler = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const userId = res.locals.user?.id;
+    const userId = req.params.userId;
     if (!userId) throw new AppError(403, "Forbidden");
     const data = await getUserJobApplicationById(<string>req.params.id, userId);
     return res.status(200).json(data);

@@ -23,11 +23,14 @@ export const AuthContextProvider = () => {
   const contextValue = useMemo(() => ({ user, handleSetUser }), [user]);
 
   useEffect(() => {
+    console.log("authcontext effect ran");
     const checkAuth = async () => {
       try {
         const authenticatedUser = await getAuthenticatedUser();
         setUser(authenticatedUser);
-        navigate("/");
+        if (!authenticatedUser) {
+          navigate("/");
+        }
       } catch (error) {
         console.error(error);
       } finally {
@@ -36,7 +39,7 @@ export const AuthContextProvider = () => {
     };
 
     checkAuth();
-  }, []);
+  }, [navigate]);
 
   return <AuthContext.Provider value={contextValue}>{!isInitialLoading && <Outlet />}</AuthContext.Provider>;
 };
