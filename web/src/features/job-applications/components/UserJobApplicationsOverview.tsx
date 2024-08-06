@@ -17,25 +17,25 @@ export const UserJobApplicationsOverview = ({ userId }: UserJobApplicationsOverv
         {
           label: "Total Applications",
           data: data.count,
-          percentage: "+ 10% from last month",
+          // percentage: "+ 10% from last month",
           icon: <FaSuitcase />,
         },
         {
           label: "Submitted",
           data: data.submitted,
-          percentage: "+ 5% from last month",
+          // percentage: "+ 5% from last month",
           icon: <FiSend />,
         },
         {
           label: "In Progress",
           data: data.inProgress,
-          percentage: "- 2% from last month",
+          // percentage: "- 2% from last month",
           icon: <FaRegClock />,
         },
         {
           label: "Rejected",
           data: data.rejected,
-          percentage: "+ 50% from last month",
+          // percentage: "+ 50% from last month",
           icon: <IoMdClose />,
         },
       ].map((item) => (
@@ -44,7 +44,7 @@ export const UserJobApplicationsOverview = ({ userId }: UserJobApplicationsOverv
             {item.label} <span>{item.icon}</span>
           </h2>
           <p className="text-md font-bold md:text-2xl">{item.data}</p>
-          <p className="text-xs text-gray-500 md:text-sm">{item.percentage}</p>
+          {/* <p className="text-xs text-gray-500 md:text-sm">{item.percentage}</p> */}
         </div>
       ))}
     </section>
