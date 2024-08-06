@@ -33,8 +33,8 @@ export const UpdateJobApplication = ({ close, isOpen, jobApplication }: UpdateJo
   });
 
   const mutation = useMutation({
-    mutationFn: (application: JobApplicationInputs) => {
-      return updateJobApplication(jobApplication.id, application);
+    mutationFn: async (application: JobApplicationInputs) => {
+      return await updateJobApplication(jobApplication.id, application);
     },
     onError: (error) => {
       toast.error(error.message);

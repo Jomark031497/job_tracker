@@ -1,164 +1,55 @@
-import { SubmitHandler, useForm } from "react-hook-form";
-import { Button } from "../../../components/ui/Button";
-import { InputField } from "../../../components/ui/InputField";
-import { Modal } from "../../../components/ui/Modal";
-import { SelectField } from "../../../components/ui/SelectField";
-import { TextArea } from "../../../components/ui/TextArea";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { JOB_APPLICATION_STATUS, JobApplicationInputs, jobApplicationSchema } from "../job-applications.schema";
-import { __API_URL__ } from "../../../constants";
-import toast from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
+import { Modal } from "../../../components/ui/Modal";
+import { __API_URL__ } from "../../../constants";
+import { deleteJobApplication } from "../handlers/deleteJobApplication";
+import toast from "react-hot-toast";
 import { queryClient } from "../../../lib/queryClient";
-import { JobApplication } from "../job-applications.types";
-import { updateJobApplication } from "../handlers/updateJobApplication";
+import { useNavigate } from "react-router-dom";
 
 type DeleteJobApplicationProps = {
   isOpen: boolean;
   close: () => void;
-  jobApplication: JobApplication;
+  jobApplicationId: string;
 };
 
-export const DeleteJobApplication = ({ close, isOpen, jobApplication }: DeleteJobApplicationProps) => {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors, isLoading },
-  } = useForm<JobApplicationInputs>({
-    resolver: zodResolver(jobApplicationSchema),
-    defaultValues: {
-      ...jobApplication,
-    },
-  });
+export const DeleteJobApplication = ({ close, isOpen, jobApplicationId }: DeleteJobApplicationProps) => {
+  const navigate = useNavigate();
 
   const mutation = useMutation({
-    mutationFn: (application: JobApplicationInputs) => {
-      return updateJobApplication(jobApplication.id, application);
-    },
+    mutationFn: async (id: string) => await deleteJobApplication(id),
     onError: (error) => {
       toast.error(error.message);
     },
     onSuccess: () => {
-      toast.success("Application created");
-      reset();
-      queryClient.invalidateQueries({
-        queryKey: ["jobApplication"],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["userJobApplications"],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["userJobApplicationsOverview"],
-      });
-      close();
+      queryClient.invalidateQueries({ queryKey: ["userJobApplications"] });
+      toast.success("Job application deleted");
+      navigate("/");
     },
   });
 
-  const onSubmit: SubmitHandler<JobApplicationInputs> = async (values) => {
-    console.log(values);
-    mutation.mutate({
-      ...values,
-    });
-  };
-
   return (
-    <Modal close={close} isOpen={isOpen} title="Update Job Application">
-      <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-4 gap-2">
-        <InputField
-          label="Company Name *"
-          placeholder="Acme Inc."
-          {...register("companyName")}
-          fieldError={errors.companyName}
-          containerClassName="col-span-4"
-        />
+    <Modal close={close} isOpen={isOpen} title="Delete Job Application">
+      <div className="flex flex-col gap-4">
+        <p className="text-center text-sm">Are you sure you want to delete this Job Application?</p>
 
-        <InputField
-          label="Company Address"
-          placeholder="Maligaya St., Sindalan, Pampanga"
-          {...register("companyAddress")}
-          fieldError={errors.companyAddress}
-          containerClassName="col-span-4"
-        />
+        <p className="text-center text-sm italic text-red-500">
+          This action cannot be undone. Once deleted, all information associated with this application will be
+          permanently removed from our system.
+        </p>
 
-        <InputField
-          label="Company Website"
-          placeholder="www.acme.com"
-          {...register("companyWebsite")}
-          fieldError={errors.companyWebsite}
-          containerClassName="col-span-2"
-        />
-        <InputField
-          label="Contact Person"
-          placeholder="Wile E Coyote"
-          {...register("contactPerson")}
-          fieldError={errors.contactPerson}
-          containerClassName="col-span-2"
-        />
-
-        <TextArea
-          label="Description"
-          {...register("description")}
-          fieldError={errors.description}
-          rows={1}
-          containerClassName="col-span-4"
-        />
-
-        <InputField
-          label="Role *"
-          placeholder="ex. Web Developer, Accountant, Engineer"
-          {...register("role")}
-          fieldError={errors.role}
-          containerClassName="col-span-2"
-        />
-        <SelectField
-          label="Status *"
-          {...register("status")}
-          fieldError={errors.status}
-          containerClassName="col-span-2"
-        >
-          {JOB_APPLICATION_STATUS.map((item) => (
-            <option key={item} value={item}>
-              {item}
-            </option>
-          ))}
-        </SelectField>
-
-        <InputField
-          type="date"
-          label="Application Date"
-          {...register("applicationDate", {
-            valueAsDate: true,
-          })}
-          fieldError={errors.applicationDate}
-          containerClassName="col-span-2"
-        />
-        <InputField
-          label="Platform *"
-          placeholder="ex. Linkedin, Twitter, Jobstreet"
-          {...register("platform")}
-          fieldError={errors.platform}
-          containerClassName="col-span-2"
-        />
-        <InputField
-          label="Expected Salary *"
-          {...register("expectedSalary", {
-            valueAsNumber: true,
-          })}
-          fieldError={errors.expectedSalary}
-          containerClassName="col-span-2"
-        />
-        <div className="col-span-3 py-2">
-          <label className="flex items-center gap-2 text-sm">
-            <input type="checkbox" {...register("isPublic")} className="h-5 w-5" />
-            Public
-          </label>
+        <div className="flex justify-between gap-4">
+          <button onClick={close} className="rounded bg-gray-100 px-4 py-2 text-sm transition-all hover:bg-gray-300">
+            Cancel
+          </button>
+          <button
+            onClick={() => mutation.mutate(jobApplicationId)}
+            className="rounded bg-red-600 px-4 py-2 text-sm text-white transition-all hover:bg-red-800"
+            disabled={mutation.isPending}
+          >
+            {mutation.isPending ? "Deleting..." : "Delete"}
+          </button>
         </div>
-
-        <Button type="submit" disabled={isLoading} className="col-span-4 justify-self-end px-16">
-          Create
-        </Button>
-      </form>
+      </div>
     </Modal>
   );
 };
