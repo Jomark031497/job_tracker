@@ -78,11 +78,8 @@ export const UserJobApplications = ({ open, userId }: UserJobApplicationsProps) 
           <div className="block md:hidden">
             <ul className="flex flex-col gap-2">
               {userJobApplications?.data.map((item) => (
-                <li key={item.id} className="rounded border p-2 shadow">
-                  <Link
-                    to={`/job-applications/${item.id}`}
-                    className="grid grid-cols-3 transition-all hover:bg-gray-100"
-                  >
+                <li key={item.id} className="rounded border p-2 shadow hover:bg-gray-100">
+                  <Link to={`/job-applications/${item.id}`} className="grid grid-cols-3 transition-all">
                     <div className="col-span-2 flex flex-col gap-0.5">
                       <p className="text-xs font-semibold tracking-wide">{item.companyName}</p>
                       <p className="text-xs">{item.role}</p>
