@@ -1,28 +1,33 @@
 import { QueryErrorResetBoundary } from "@tanstack/react-query";
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { Button } from "../../../components/ui/Button";
 
-type WithErrorBoundaryProps = {
+type SuspenseWithErrorBoundaryProps = {
   children: ReactNode;
-  fallbackMessage: string;
+  errorFallbackMessage: string;
+  fallback: ReactNode;
 };
 
-export const WithErrorBoundary = ({ children, fallbackMessage }: WithErrorBoundaryProps) => (
+export const SuspenseWithErrorBoundary = ({
+  children,
+  errorFallbackMessage,
+  fallback,
+}: SuspenseWithErrorBoundaryProps) => (
   <QueryErrorResetBoundary>
     {({ reset }) => (
       <ErrorBoundary
         onReset={reset}
         fallbackRender={({ resetErrorBoundary }) => (
           <div className="flex flex-col items-center border p-4">
-            <p className="italic text-red-500">{fallbackMessage}</p>
+            <p className="italic text-red-500">{errorFallbackMessage}</p>
             <Button className="px-4" onClick={resetErrorBoundary}>
               Try again
             </Button>
           </div>
         )}
       >
-        {children}
+        <Suspense fallback={fallback}>{children}</Suspense>
       </ErrorBoundary>
     )}
   </QueryErrorResetBoundary>

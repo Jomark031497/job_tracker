@@ -8,8 +8,7 @@ import { AuthRoute } from "./features/miscs/components/AuthRoute";
 import { AuthLayout } from "./components/layouts/AuthLayout";
 import { Dashboard } from "./features/dashboard/components/Dashboard";
 import { JobApplication } from "./features/job-applications/components/JobApplication";
-import { Suspense } from "react";
-import { WithErrorBoundary } from "./features/miscs/components/WithErrorBoundary";
+import { SuspenseWithErrorBoundary } from "./features/miscs/components/SuspenseWithErrorBoundary";
 
 const router = createBrowserRouter([
   {
@@ -29,11 +28,12 @@ const router = createBrowserRouter([
               {
                 path: "/job-applications/:id",
                 element: (
-                  <WithErrorBoundary fallbackMessage="Unable to fetch job application">
-                    <Suspense fallback={<>Loading...</>}>
-                      <JobApplication />
-                    </Suspense>
-                  </WithErrorBoundary>
+                  <SuspenseWithErrorBoundary
+                    fallback={<>Loading...</>}
+                    errorFallbackMessage="Unable to fetch job application"
+                  >
+                    <JobApplication />
+                  </SuspenseWithErrorBoundary>
                 ),
               },
 

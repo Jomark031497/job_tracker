@@ -1,8 +1,7 @@
 import { useAuth } from "../../auth/hooks/useAuth";
-import { Suspense } from "react";
 import { useToggle } from "../../miscs/hooks/useToggle";
 import { lazily } from "react-lazily";
-import { WithErrorBoundary } from "../../miscs/components/WithErrorBoundary";
+import { SuspenseWithErrorBoundary } from "../../miscs/components/SuspenseWithErrorBoundary";
 import { Navigate } from "react-router-dom";
 
 const { CreateJobApplication } = lazily(() => import("../../job-applications/components/CreateJobApplication"));
@@ -22,11 +21,12 @@ export const Dashboard = () => {
 
   return (
     <div className="flex flex-col gap-8 md:gap-12">
-      <WithErrorBoundary fallbackMessage="Unable to fetch applications overview">
-        <Suspense fallback={<ApplicationsOverviewSkeleton />}>
-          <UserJobApplicationsOverview userId={user.id} />
-        </Suspense>
-      </WithErrorBoundary>
+      <SuspenseWithErrorBoundary
+        fallback={<ApplicationsOverviewSkeleton />}
+        errorFallbackMessage="Unable to fetch applications overview"
+      >
+        <UserJobApplicationsOverview userId={user.id} />
+      </SuspenseWithErrorBoundary>
 
       <UserJobApplications userId={user.id} open={open} />
 
