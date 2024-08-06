@@ -106,7 +106,7 @@ export const UserJobApplications = ({ open, userId }: UserJobApplicationsProps) 
                 {table.getHeaderGroups().map((headerGroup) => (
                   <tr key={headerGroup.id}>
                     {headerGroup.headers.map((header) => (
-                      <th key={header.id} className="pb-2 text-start font-normal text-gray-500">
+                      <th key={header.id} className="px-2 pb-2 text-start font-normal text-gray-500">
                         {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                       </th>
                     ))}
@@ -123,7 +123,7 @@ export const UserJobApplications = ({ open, userId }: UserJobApplicationsProps) 
                     className="border-t transition-all hover:cursor-pointer hover:bg-gray-100 hover:shadow"
                   >
                     {row.getVisibleCells().map((cell) => (
-                      <td key={cell.id} className="py-4 text-sm font-medium">
+                      <td key={cell.id} className="px-2 py-4 text-sm font-medium">
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                       </td>
                     ))}

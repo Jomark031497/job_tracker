@@ -6,6 +6,7 @@ import { formatToCurrency } from "../../../utils/formatToCurrency";
 import { FaRegEdit } from "react-icons/fa";
 import { lazily } from "react-lazily";
 import { useToggle } from "../../miscs/hooks/useToggle";
+import { MdDeleteOutline } from "react-icons/md";
 
 const { UpdateJobApplication } = lazily(() => import("./UpdateJobApplication"));
 
@@ -23,9 +24,13 @@ export const JobApplication = () => {
   return (
     <>
       <div className="flex flex-col gap-4">
-        <div>
+        <div className="flex items-center gap-2">
           <button onClick={openUpdateModal} className="text-xl">
             <FaRegEdit />
+          </button>
+
+          <button className="text-xl">
+            <MdDeleteOutline />
           </button>
         </div>
 
