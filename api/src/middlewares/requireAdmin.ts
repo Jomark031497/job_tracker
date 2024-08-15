@@ -11,7 +11,5 @@ export const requireAdmin = async (_req: Request, res: Response, next: NextFunct
 
   if (queriedUser.role !== "admin") return res.status(403).end();
 
-  console.log(user);
-
   return next();
 };

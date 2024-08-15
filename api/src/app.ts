@@ -1,9 +1,9 @@
-import express from "express";
-import { logger } from "./lib/logger.js";
 import cors from "cors";
-import { initializeRoutes } from "./routes.js";
-import { errorHandler } from "./middlewares/errorHandler.js";
+import express from "express";
 import { env } from "./env.js";
+import { logger } from "./lib/logger.js";
+import { errorHandler } from "./middlewares/errorHandler.js";
+import { initializeRoutes } from "./routes.js";
 
 async function main() {
   const app = express();
