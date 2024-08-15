@@ -26,6 +26,7 @@ export const authenticatedUser = async (req: Request, res: Response, next: NextF
 };
 
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Express {
     interface Locals {
       user: User | null;
