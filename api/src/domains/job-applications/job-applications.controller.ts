@@ -4,12 +4,12 @@ import {
   deleteJobApplicationById,
   getJobApplicationById,
   getJobApplications,
-  getJobApplicationsByUser,
+  getUserJobApplications,
   getUserJobApplicationById,
   getUserJobApplicationsOverview,
   updateJobApplication,
-} from "./job-applications.service";
-import { AppError } from "../../utils/AppError";
+} from "./job-applications.service.js";
+import { AppError } from "../../utils/AppError.js";
 
 export const getAllJobApplicationsHandler = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -22,7 +22,7 @@ export const getAllJobApplicationsHandler = async (req: Request, res: Response, 
 
 export const getAllUserJobApplicationsHandler = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const data = await getJobApplicationsByUser(<string>req.params.userId, req.query);
+    const data = await getUserJobApplications(<string>req.params.userId, req.query);
     return res.status(200).json(data);
   } catch (error) {
     return next(error);

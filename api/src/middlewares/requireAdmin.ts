@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { getUserById } from "../domains/users/users.service";
+import { getUserById } from "../domains/users/users.service.js";
 
 export const requireAdmin = async (_req: Request, res: Response, next: NextFunction) => {
   const user = res.locals.user;

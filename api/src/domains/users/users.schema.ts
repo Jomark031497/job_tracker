@@ -2,7 +2,7 @@ import { pgEnum, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
 import { createId } from "@paralleldrive/cuid2";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { relations } from "drizzle-orm";
-import { jobApplications } from "../job-applications/job-applications.schema";
+import { jobApplications } from "../job-applications/job-applications.schema.js";
 
 const ROLES = ["user", "admin", "superadmin"] as const;
 

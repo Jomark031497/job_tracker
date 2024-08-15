@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { authenticatedUserHandler, loginUserHandler, logoutUserHandler, signUpUserHandler } from "./auth.controller";
-import { validateSchema } from "../../middlewares/validateSchema";
-import { insertUserSchema, selectUserSchema } from "../users/users.schema";
-import { authenticatedUser } from "../../middlewares/requireAuth";
+import { authenticatedUserHandler, loginUserHandler, logoutUserHandler, signUpUserHandler } from "./auth.controller.js";
+import { validateSchema } from "../../middlewares/validateSchema.js";
+import { insertUserSchema, selectUserSchema } from "../users/users.schema.js";
+import { authenticatedUser } from "../../middlewares/requireAuth.js";
 
 export const authRouter = Router();
 

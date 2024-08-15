@@ -1,11 +1,42 @@
 import { and, eq, InferInsertModel, sql } from "drizzle-orm";
-import { jobApplications } from "./job-applications.schema";
-import { db } from "../../db";
-import { AppError } from "../../utils/AppError";
+import { jobApplications, notes } from "./job-applications.schema.js";
+import { db } from "../../db/index.js";
+import { AppError } from "../../utils/AppError.js";
 
-export const createJobApplication = async (payload: InferInsertModel<typeof jobApplications>) => {
-  const query = await db.insert(jobApplications).values(payload).returning();
-  return query[0];
+export const createJobApplication = async (
+  payload: InferInsertModel<typeof jobApplications> & { initialNote?: string },
+) => {
+  const query = await db.transaction(async (tx) => {
+    const { initialNote, ...jobApplicationData } = payload;
+
+    // Create the job application
+    const [newJobApplication] = await tx.insert(jobApplications).values(jobApplicationData).returning();
+
+    if (!newJobApplication) throw new AppError(400, "Unable to create new job application");
+
+    // create initial note if provided
+    if (initialNote) {
+      await tx.insert(notes).values({
+        jobApplicationId: newJobApplication?.id,
+        status: newJobApplication?.status,
+        body: initialNote,
+        createdAt: newJobApplication?.createdAt,
+      });
+    }
+
+    const newJobApplicationWithNote = await tx.query.jobApplications.findFirst({
+      where: (jobApplications, { eq }) => eq(jobApplications.id, newJobApplication.id),
+      with: {
+        notes: true,
+      },
+    });
+
+    if (!newJobApplicationWithNote) throw new AppError(400, "Unable to create new job application");
+
+    return newJobApplicationWithNote;
+  });
+
+  return query;
 };
 
 export const getJobApplications = async (queryParams?: Record<string, unknown>) => {
@@ -26,7 +57,7 @@ export const getJobApplications = async (queryParams?: Record<string, unknown>) 
   });
 };
 
-export const getJobApplicationsByUser = async (userId: string, queryParams?: Record<string, unknown>) => {
+export const getUserJobApplications = async (userId: string, queryParams?: Record<string, unknown>) => {
   const pageSize = queryParams?.pageSize ? parseInt(queryParams.pageSize as string, 10) : 5;
   const page = queryParams?.page ? parseInt(queryParams.page as string) : 1;
 
@@ -36,6 +67,9 @@ export const getJobApplicationsByUser = async (userId: string, queryParams?: Rec
       orderBy: (applications, { desc }) => desc(applications.applicationDate),
       limit: pageSize,
       offset: (page - 1) * pageSize,
+      with: {
+        notes: true,
+      },
     });
 
     const count = await tx
@@ -90,6 +124,9 @@ export const getUserJobApplicationsOverview = async (userId: string) => {
 export const getJobApplicationById = async (id: string) => {
   return await db.query.jobApplications.findFirst({
     where: (applications, { eq }) => eq(applications.id, id),
+    with: {
+      notes: true,
+    },
   });
 };
 

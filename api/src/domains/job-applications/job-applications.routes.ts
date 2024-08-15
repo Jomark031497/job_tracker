@@ -8,9 +8,9 @@ import {
   getSingleJobApplicationByIdHandler,
   getUserJobApplicationsOverviewHandler,
   updateJobApplicationHandler,
-} from "./job-applications.controller";
-import { validateSchema } from "../../middlewares/validateSchema";
-import { insertJobApplicationsSchema } from "./job-applications.schema";
+} from "./job-applications.controller.js";
+import { validateSchema } from "../../middlewares/validateSchema.js";
+import { insertJobApplicationsSchema } from "./job-applications.schema.js";
 import { requireAdmin } from "../../middlewares/requireAdmin.js";
 
 export const jobApplicationsRouter = Router();
