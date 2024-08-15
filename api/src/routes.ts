@@ -7,4 +7,9 @@ export const initializeRoutes = (app: Express) => {
   app.use("/api/users", usersRouter);
   app.use("/api/auth", authRouter);
   app.use("/api/job-applications", jobApplicationsRouter);
+
+  // Add additional routes or catch-all route for 404
+  app.use("*", (_req, res) => {
+    res.status(404).json({ error: "Not Found" });
+  });
 };
