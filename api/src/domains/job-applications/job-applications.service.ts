@@ -1,6 +1,6 @@
 import { and, eq, InferInsertModel, sql } from "drizzle-orm";
 import { jobApplications, notes } from "./job-applications.schema.js";
-import { db } from "../../db/index.js";
+import { db } from "../../db/dbInstance.js";
 import { AppError } from "../../utils/AppError.js";
 
 export const createJobApplication = async (

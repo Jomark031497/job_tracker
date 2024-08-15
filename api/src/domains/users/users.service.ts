@@ -1,5 +1,5 @@
 import { eq, InferInsertModel } from "drizzle-orm";
-import { db } from "../../db/index.js";
+import { db } from "../../db/dbInstance.js";
 import { users } from "./users.schema.js";
 import { Argon2id } from "oslo/password";
 import { AppError } from "../../utils/AppError.js";
