@@ -3,17 +3,18 @@ import { logger } from "./lib/logger.js";
 import cors from "cors";
 import { initializeRoutes } from "./routes.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
+import { env } from "./env.js";
 
 async function main() {
   const app = express();
-  const port = process.env.PORT;
+  const port = env.PORT;
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
 
   app.use(
     cors({
-      origin: process.env.CLIENT_URL,
+      origin: env.CLIENT_URL,
       credentials: true,
     }),
   );
