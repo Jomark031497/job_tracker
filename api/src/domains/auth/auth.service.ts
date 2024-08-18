@@ -36,3 +36,7 @@ export const loginUser = async (payload: Pick<InferInsertModel<typeof users>, "u
 
   return excludeFields(user, ["password"]);
 };
+
+export const sum = (a: number, b: number) => {
+  return a + b;
+};
