@@ -39,24 +39,6 @@ export const createJobApplication = async (
   return query;
 };
 
-export const getJobApplications = async (queryParams?: Record<string, unknown>) => {
-  const isPublic = queryParams?.isPublic ? !!queryParams.isPublic : false;
-
-  return await db.transaction(async (tx) => {
-    const data = await tx.query.jobApplications.findMany({
-      where: (applications, { eq }) => eq(applications.isPublic, isPublic),
-    });
-
-    const count = await tx
-      .select({ count: sql`count(*)` })
-      .from(jobApplications)
-      .where(eq(jobApplications.isPublic, isPublic))
-      .then((result) => Number(result[0]?.count));
-
-    return { data, count };
-  });
-};
-
 export const getUserJobApplications = async (userId: string, queryParams?: Record<string, unknown>) => {
   const pageSize = queryParams?.pageSize ? parseInt(queryParams.pageSize as string, 10) : 5;
   const page = queryParams?.page ? parseInt(queryParams.page as string) : 1;

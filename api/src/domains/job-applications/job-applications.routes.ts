@@ -1,42 +1,32 @@
 import { Router } from "express";
-import { authenticatedUser } from "../../middlewares/requireAuth.js";
+import { requireAuth } from "../../middlewares/requireAuth.js";
 import {
   createJobApplicationHandler,
   deleteJobApplicationHandler,
   getAllUserJobApplicationsHandler,
-  getAllJobApplicationsHandler,
   getSingleJobApplicationByIdHandler,
   getUserJobApplicationsOverviewHandler,
   updateJobApplicationHandler,
 } from "./job-applications.controller.js";
 import { validateSchema } from "../../middlewares/validateSchema.js";
 import { insertJobApplicationsSchema } from "./job-applications.schema.js";
-import { requireAdmin } from "../../middlewares/requireAdmin.js";
 
 export const jobApplicationsRouter = Router();
 
-// get all job applications (admin only)
-jobApplicationsRouter.get("/", authenticatedUser, requireAdmin, getAllJobApplicationsHandler);
-
 // get single job application
-jobApplicationsRouter.get("/:id", authenticatedUser, getSingleJobApplicationByIdHandler);
+jobApplicationsRouter.get("/:id", requireAuth, getSingleJobApplicationByIdHandler);
 
 // get all job applications of a user
-jobApplicationsRouter.get("/user/:userId", authenticatedUser, getAllUserJobApplicationsHandler);
+jobApplicationsRouter.get("/user/:userId", requireAuth, getAllUserJobApplicationsHandler);
 
 // get job applications overview of a user
-jobApplicationsRouter.get("/user/:userId/overview", authenticatedUser, getUserJobApplicationsOverviewHandler);
+jobApplicationsRouter.get("/user/:userId/overview", requireAuth, getUserJobApplicationsOverviewHandler);
 
 // create a job application
-jobApplicationsRouter.post(
-  "/",
-  authenticatedUser,
-  validateSchema(insertJobApplicationsSchema),
-  createJobApplicationHandler,
-);
+jobApplicationsRouter.post("/", requireAuth, validateSchema(insertJobApplicationsSchema), createJobApplicationHandler);
 
 // update a job application
-jobApplicationsRouter.patch("/:id", authenticatedUser, updateJobApplicationHandler);
+jobApplicationsRouter.patch("/:id", requireAuth, updateJobApplicationHandler);
 
 // delete a job application
-jobApplicationsRouter.delete("/:id", authenticatedUser, deleteJobApplicationHandler);
+jobApplicationsRouter.delete("/:id", requireAuth, deleteJobApplicationHandler);

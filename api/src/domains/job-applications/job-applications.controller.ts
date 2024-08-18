@@ -3,22 +3,12 @@ import {
   createJobApplication,
   deleteJobApplicationById,
   getJobApplicationById,
-  getJobApplications,
   getUserJobApplications,
   getUserJobApplicationById,
   getUserJobApplicationsOverview,
   updateJobApplication,
 } from "./job-applications.service.js";
 import { AppError } from "../../utils/AppError.js";
-
-export const getAllJobApplicationsHandler = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const data = await getJobApplications(req.query);
-    return res.status(200).json(data);
-  } catch (error) {
-    return next(error);
-  }
-};
 
 export const getAllUserJobApplicationsHandler = async (req: Request, res: Response, next: NextFunction) => {
   try {
