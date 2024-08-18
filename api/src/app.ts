@@ -5,10 +5,8 @@ import { logger } from "./lib/logger.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
 import { initializeRoutes } from "./routes.js";
 
-async function main() {
+export function createApp() {
   const app = express();
-  const port = env.PORT;
-
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
 
@@ -22,6 +20,13 @@ async function main() {
   initializeRoutes(app);
 
   app.use(errorHandler);
+
+  return app;
+}
+
+async function main() {
+  const app = createApp();
+  const port = env.PORT;
 
   const server = app.listen(port, () => {
     logger.info(`Server running at http://localhost:${port}`);

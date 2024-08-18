@@ -1,15 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { createUser, deleteUser, getUsers, updateUser } from "./users.service.js";
-
-export const getUsersHandler = async (_req: Request, res: Response, next: NextFunction) => {
-  try {
-    const data = await getUsers();
-
-    return res.status(200).json(data);
-  } catch (error) {
-    return next(error);
-  }
-};
+import { createUser, deleteUser, updateUser } from "./users.service.js";
 
 export const createUserHandler = async (req: Request, res: Response, next: NextFunction) => {
   try {

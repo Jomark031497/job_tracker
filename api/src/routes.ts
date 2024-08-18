@@ -4,6 +4,9 @@ import { authRouter } from "./domains/auth/auth.routes.js";
 import { jobApplicationsRouter } from "./domains/job-applications/job-applications.routes.js";
 
 export const initializeRoutes = (app: Express) => {
+  app.use("/healthcheck", (_req, res) => {
+    return res.status(200).send("OK");
+  });
   app.use("/api/users", usersRouter);
   app.use("/api/auth", authRouter);
   app.use("/api/job-applications", jobApplicationsRouter);

@@ -4,14 +4,6 @@ import { users } from "./users.schema.js";
 import { Argon2id } from "oslo/password";
 import { AppError } from "../../utils/AppError.js";
 
-export const getUsers = async () => {
-  return await db.query.users.findMany({
-    columns: {
-      password: false,
-    },
-  });
-};
-
 export const getUserById = async (id: string, includePassword: boolean = true) => {
   return await db.query.users.findFirst({
     where: (users, { eq }) => eq(users.id, id),
@@ -41,6 +33,12 @@ export const getUserByEmail = async (email: string) => {
 };
 
 export const createUser = async (payload: InferInsertModel<typeof users>) => {
+  const usernameExists = await getUserByUsername(payload.username);
+  if (usernameExists) throw new AppError(400, "Username is already taken");
+
+  const emailExists = await getUserByEmail(payload.email);
+  if (emailExists) throw new AppError(400, "Email is already taken");
+
   const hashedPassword = await new Argon2id().hash(payload.password);
 
   const query = await db
