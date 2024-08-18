@@ -4,15 +4,11 @@ import { lucia } from "../lib/lucia.js";
 
 export const requireAuth = async (req: Request, res: Response, next: NextFunction) => {
   const sessionId = lucia.readSessionCookie(req.headers.cookie ?? "");
-  if (!sessionId) {
-    res.locals.user = null;
-    res.locals.session = null;
-    return next();
-  }
+  if (!sessionId) return res.status(401).json({ message: "Unauthorized: No session found." });
 
   const { session, user } = await lucia.validateSession(sessionId);
 
-  if (!user) return res.status(401).end();
+  if (!user) return res.status(401).json({ message: "Unauthorized: No session found." });
 
   if (session && session.fresh) {
     res.appendHeader("Set-Cookie", lucia.createSessionCookie(session.id).serialize());

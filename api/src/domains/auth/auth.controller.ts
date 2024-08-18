@@ -5,7 +5,7 @@ import { lucia } from "../../lib/lucia.js";
 export const authenticatedUserHandler = async (_req: Request, res: Response, next: NextFunction) => {
   try {
     const user = res.locals.user;
-    if (!user) return res.status(401).json({ message: "unauthorized" });
+    if (!user) return res.status(401).json({ message: "unauthorized. user not found in session" });
 
     const authenticatedUser = await getAuthenticatedUser(user.id);
 
@@ -21,7 +21,7 @@ export const signUpUserHandler = async (req: Request, res: Response, next: NextF
 
     const session = await lucia.createSession(user.id, {});
 
-    return res.appendHeader("Set-Cookie", lucia.createSessionCookie(session.id).serialize()).json(user);
+    return res.appendHeader("Set-Cookie", lucia.createSessionCookie(session.id).serialize()).status(201).json(user);
   } catch (error) {
     return next(error);
   }
@@ -42,7 +42,7 @@ export const loginUserHandler = async (req: Request, res: Response, next: NextFu
 export const logoutUserHandler = async (_req: Request, res: Response, next: NextFunction) => {
   try {
     const session = res.locals.session;
-    if (!session) return res.status(401).json({ message: "unauthorized" });
+    if (!session) return res.status(401).json({ message: "unauthorized. user not found in session" });
 
     await lucia.invalidateSession(session.id);
 
