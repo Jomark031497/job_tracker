@@ -3,7 +3,7 @@ import { createApp } from "./app";
 import supertest from "supertest";
 import assert from "node:assert";
 
-describe("testing the app", () => {
+describe("testing the app", async () => {
   const app = createApp();
   const request = supertest(app);
 

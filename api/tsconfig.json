@@ -15,7 +15,8 @@
     "lib": ["ESNext"], // Uses the latest ES library
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noUncheckedIndexedAccess": true
+    "noUncheckedIndexedAccess": true,
+    "moduleDetection": "force"
   },
   "exclude": ["node_modules"],
   "include": ["src/**/*"]

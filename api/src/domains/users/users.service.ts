@@ -33,11 +33,15 @@ export const getUserByEmail = async (email: string) => {
 };
 
 export const createUser = async (payload: InferInsertModel<typeof users>) => {
+  const errors: Record<string, unknown> = {};
+
   const usernameExists = await getUserByUsername(payload.username);
-  if (usernameExists) throw new AppError(400, "Username is already taken");
+  if (usernameExists) errors.username = "username is already taken";
 
   const emailExists = await getUserByEmail(payload.email);
-  if (emailExists) throw new AppError(400, "Email is already taken");
+  if (emailExists) errors.email = "email is already taken";
+
+  if (Object.keys(errors).length > 0) throw new AppError(400, "duplicate error", errors);
 
   const hashedPassword = await new Argon2id().hash(payload.password);
 

@@ -5,6 +5,7 @@ export const logger = pino({
   base: {
     pid: false,
   },
+  level: process.env.NODE_ENV === "test" ? "silent" : "info",
   transport: {
     // level: 'info',
     target: "pino-pretty",

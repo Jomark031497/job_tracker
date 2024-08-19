@@ -26,7 +26,21 @@ export const usersRelations = relations(users, ({ many }) => ({
 }));
 
 export const insertUserSchema = createInsertSchema(users, {
-  email: (schema) => schema.email.email(),
+  email: (schema) =>
+    schema.email
+      .trim()
+      .email("Please enter a valid email address")
+      .max(255, "Email must not exceed 255 characters long"),
+  username: (schema) =>
+    schema.username
+      .trim()
+      .min(3, "Username must be at least 3 characters long")
+      .max(255, "Username must not exceed 255 characters long"),
+  fullName: (schema) => schema.fullName.max(255, "Full name must not exceed 255 characters long"),
+  password: (schema) =>
+    schema.password
+      .min(6, "Password must be at least 6 characters long")
+      .max(255, "Password must not exceed 255 characters long"),
 });
 
 export const selectUserSchema = createSelectSchema(users);

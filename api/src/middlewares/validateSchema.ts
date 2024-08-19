@@ -15,7 +15,10 @@ export const validateSchema = (schema: AnyZodObject) => async (req: Request, res
         return { ...prev, [key]: value };
       }, {});
 
-      return res.status(400).json(mappedErrors);
+      return res.status(400).json({
+        message: "Validation Error",
+        errors: mappedErrors,
+      });
     }
 
     return res.status(400).json(error);
