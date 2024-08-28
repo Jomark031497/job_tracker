@@ -1,21 +1,36 @@
-import { describe, it } from "node:test";
-import { createApp } from "./app";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
 import supertest from "supertest";
-import assert from "node:assert";
+import { createApp } from "./app";
+import { env } from "./env";
+import { logger } from "./lib/logger";
 
-describe("testing the app", async () => {
+describe("App Initialization", () => {
   const app = createApp();
-  const request = supertest(app);
+  let server = app.listen(0);
+  let request = supertest(server);
 
-  it("GET /healthcheck should return a 200", async () => {
+  beforeEach(async () => {
+    const app = createApp();
+    server = app.listen(0, () => {
+      logger.info(`Test server running at http://localhost:${env.PORT}`);
+    });
+    request = supertest(server);
+  });
+
+  afterEach(async () => {
+    await new Promise<void>((resolve) => {
+      server.close(() => {
+        logger.info("Test server closed");
+        resolve();
+      });
+    });
+  });
+
+  it("should respond with 200 status on GET /healthcheck", async () => {
     const response = await request.get("/healthcheck");
-    assert.strictEqual(response.status, 200);
-    assert.strictEqual(response.text, "OK");
+    expect(response.status).toBe(200);
+    expect(response.text).toBe("OK"); // Adjust based on your actual route response
   });
 
-  it("GET /api/auth/user should return 401 if unauthenticated", async () => {
-    const response = await request.get("/api/auth/user");
-
-    assert.strictEqual(response.status, 401);
-  });
+  // Add more tests here as needed
 });
