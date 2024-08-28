@@ -5,6 +5,7 @@ const envSchema = z.object({
   PORT: z.string().transform(Number),
   CLIENT_URL: z.string().url(),
   DATABASE_URL: z.string().url(),
+  BASE_URL: z.string().url(),
 });
 
 const parsedEnv = envSchema.safeParse(process.env);

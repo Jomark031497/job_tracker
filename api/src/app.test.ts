@@ -1,36 +1,22 @@
-import { describe, it, beforeEach, afterEach, expect } from "vitest";
-import supertest from "supertest";
 import { createApp } from "./app";
+import { after, describe, it } from "node:test";
+import assert from "node:assert";
 import { env } from "./env";
-import { logger } from "./lib/logger";
 
-describe("App Initialization", () => {
+describe("app initialization", () => {
   const app = createApp();
-  let server = app.listen(0);
-  let request = supertest(server);
+  const server = app.listen(0);
 
-  beforeEach(async () => {
-    const app = createApp();
-    server = app.listen(0, () => {
-      logger.info(`Test server running at http://localhost:${env.PORT}`);
-    });
-    request = supertest(server);
-  });
-
-  afterEach(async () => {
-    await new Promise<void>((resolve) => {
-      server.close(() => {
-        logger.info("Test server closed");
-        resolve();
-      });
-    });
+  after(() => {
+    server.close();
   });
 
   it("should respond with 200 status on GET /healthcheck", async () => {
-    const response = await request.get("/healthcheck");
-    expect(response.status).toBe(200);
-    expect(response.text).toBe("OK"); // Adjust based on your actual route response
-  });
+    const response = await fetch(`${env.BASE_URL}/healthcheck`, {
+      method: "GET",
+    });
 
-  // Add more tests here as needed
+    assert.strictEqual(response.status, 200);
+    assert.strictEqual(response.statusText, "OK");
+  });
 });

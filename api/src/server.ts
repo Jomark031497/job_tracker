@@ -1,4 +1,5 @@
 import { createApp } from "./app";
+import { closeDbConnection } from "./db/dbInstance";
 import { env } from "./env";
 import { logger } from "./lib/logger";
 
@@ -14,8 +15,8 @@ async function main() {
   function shutdown(signal: string) {
     logger.info(`${signal} signal received: closing HTTP server`);
     server.close(() => {
+      closeDbConnection();
       logger.info("HTTP server closed");
-      // Perform any other cleanup tasks here (e.g., database connection closing)
       process.exit(0);
     });
   }

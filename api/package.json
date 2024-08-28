@@ -11,7 +11,9 @@
     "db:push": "node --env-file=$ENV_FILE --import tsx ./node_modules/drizzle-kit/bin.cjs push",
     "db:studio": "drizzle-kit studio",
     "prettier:fix": "prettier ./src --write",
-    "lint": "eslint ./src"
+    "lint": "eslint ./src",
+    "test": "tsx --test --env-file=.env.test ./src/**/*.test.ts",
+    "test:watch": "tsx --test --watch --env-file=.env.test ./src/**/*.test.ts"
   },
   "keywords": [],
   "author": "",
@@ -31,7 +33,6 @@
     "eslint": "~8.56.0",
     "eslint-config-prettier": "~9.1.0",
     "prettier": "^3.3.3",
-    "supertest": "^7.0.0",
     "tsx": "^4.16.2",
     "typescript": "^5.5.3"
   },

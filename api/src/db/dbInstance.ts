@@ -14,3 +14,7 @@ export const db = drizzle(sql, {
     ...auth,
   },
 });
+
+export const closeDbConnection = async () => {
+  await sql.end();
+};
